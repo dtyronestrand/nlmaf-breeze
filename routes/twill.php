@@ -1,8 +1,10 @@
 <?php
 
 use A17\Twill\Facades\TwillRoutes;
+use Illuminate\Support\Facades\Route;
 
 // Register Twill routes here eg.
 // TwillRoutes::module('posts');
-
-TwillRoutes::module('pages');
+Route::group(['prefix'=>'content'], function(){
+    TwillRoutes::module('pages');
+});

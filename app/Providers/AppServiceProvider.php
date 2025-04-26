@@ -26,8 +26,14 @@ class AppServiceProvider extends ServiceProvider
         Vite::prefetch(concurrency: 3);
         TwillNavigation::addLink(
             NavigationLink::make()
-            ->title(Str::ucfirst(__('pages')))
+            ->title(Str::ucfirst(__('content')))
             ->forModule('pages')
+            ->donotAddSelfAsFirstChild()
+            ->setChildren([
+                NavigationLink::make()
+                ->title(Str::ucfirst(__('pages')))
+                ->forModule('pages')
+            ]),
         );
 
         Relation::enforceMorphMap([

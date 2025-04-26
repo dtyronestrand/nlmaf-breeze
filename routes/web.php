@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Twill\PageController;
+use App\Http\Controllers\PageController;
 use Inertia\Inertia;
 
 Route::get('/{slug}', [PageController::class, 'show'])
