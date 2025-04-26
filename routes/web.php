@@ -3,9 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Twill\PageController;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->name('page.show');
+  
+
+Route::get('/auth', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
