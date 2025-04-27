@@ -1,5 +1,6 @@
 <script setup  lang="ts">
 import Head from '@/Components/Theme/Head.vue'
+import { defineAsyncComponent } from 'vue'
 defineOptions({
     layoutName: 'Default',
 })
@@ -8,12 +9,22 @@ interface Props {
     locale: string
 }
 defineProps<Props>()
-
+const BlockCommonHeading = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Heading.vue'))
 </script>
 <template>
-    <div class="bg-gray-200 w-full h-screen flex flex-col justify-center items-center">
-    <h1 class="text-center text-4xl font-semibold text-gray-900">
-    {{ item.title }}
-    </h1>
+    <Head :item="item"></Head>
+    <div
+    v-if="item?.blocks && Array.isArray(item.blocks) && item.blocks.length > 0"
+    class="mx-auto w-full max-w-6xl"
+  >
+    <div
+      v-for="(block, index) in item.blocks"
+      :key="index"
+    >
+      <BlockCommonHeading
+        v-if="block.type == 'common-heading'"
+        :block="block"
+      ></BlockCommonHeading>
     </div>
+  </div>
 </template>

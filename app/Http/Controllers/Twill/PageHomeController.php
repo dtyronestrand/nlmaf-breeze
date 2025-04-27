@@ -9,7 +9,7 @@ use A17\Twill\Services\Forms\Fieldset;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
 use App\Http\Controllers\Twill\Base\SingletonModuleController as BaseModuleController;
-
+use App\Models\Base\Model; 
 class PageHomeController extends BaseModuleController
 {
     protected $moduleName = 'pageHomes';
@@ -41,6 +41,11 @@ protected function formData($request)
         $form->add(
             BlockEditor::make()
                 ->withoutSeparator()
+                ->blocks([
+                    'common-hero',
+                    'common-heading',
+                
+                ])
             
         );
 

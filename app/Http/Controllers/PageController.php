@@ -20,6 +20,7 @@ class PageController extends Controller
 
         if($item !== null){
             $item->load('translations', 'medias', 'blocks');
+            $item->computeBlocks();
         }
 return $item;
     }
