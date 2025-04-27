@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Twill;
 
 use A17\Twill\Models\Contracts\TwillModelContract;
-use A17\Twill\Services\Listings\Columns\Text;
-use A17\Twill\Services\Listings\TableColumns;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
 use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Fieldset;
-use A17\Twill\Http\Controllers\Admin\NestedModuleController as BaseModuleController;
+use App\Http\Controllers\Twill\Base\ModuleController as BaseModuleController;
+use App\Models\Base\Model;
+
 
 class PageController extends BaseModuleController
 {
+  
+
     protected $moduleName = 'pages';
     protected $showOnlyParentItemsInBrowsers = true;
     protected $nestedItemsDepth = 1;
@@ -22,6 +24,7 @@ class PageController extends BaseModuleController
     protected function setUpController(): void
     {
         $this->setPermalinkBase('');
+        $this->withoutLanguageInPermalink();
         $this->enableReorder();
     }
 
@@ -66,17 +69,15 @@ $form->addFieldset(
     return $form;
 
 }
-    /**
-     * This is an example and can be removed if no modifications are needed to the table.
+  /**
+     * @param Model $item
+     * @return array
      */
-    protected function additionalIndexTableColumns(): TableColumns
+    protected function previewData($item)
     {
-        $table = parent::additionalIndexTableColumns();
-
-        $table->add(
-            Text::make()->field('description')->title('Description')
-        );
-
-        return $table;
+        $item->computedBlocks();
+        return $this->previewForInertia($item->only($item->publicAttributes), [
+            'page'=>'Page',
+        ]);
     }
 }

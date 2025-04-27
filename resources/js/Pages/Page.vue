@@ -1,6 +1,11 @@
 <script setup  lang="ts">
+import Head from '@/Components/Theme/Head.vue'
+defineOptions({
+    layoutName: 'Default',
+})
 interface Props {
     item: Model.Page
+    locale: string
 }
 defineProps<Props>()
 

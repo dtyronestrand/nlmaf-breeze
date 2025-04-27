@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@vueuse/core": "^13.1.0",
-        "motion-v": "^1.0.0-beta.3"
+        "motion-v": "^1.0.0-beta.3",
+        "simplex-noise": "^4.0.3"
     }
 }

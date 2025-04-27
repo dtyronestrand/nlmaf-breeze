@@ -10,11 +10,16 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
+    resolve: async (name: string) => {
+        const page = await resolvePageComponent(
             `./Pages/${name}.vue`,
-            import.meta.glob<DefineComponent>('./Pages/**/*.vue'),
-        ),
+            import.meta.glob<DefineComponent>('./Pages/**/*.vue')
+        );
+        const layoutName = page.default.layoutName || 'Default';
+        page.default.layout = (await import(`./Layouts/${layoutName}.vue`)).default;
+        return page.default;
+    },
+        
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)

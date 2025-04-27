@@ -32,12 +32,16 @@ class AppServiceProvider extends ServiceProvider
             ->setChildren([
                 NavigationLink::make()
                 ->title(Str::ucfirst(__('pages')))
-                ->forModule('pages')
+                ->forModule('pages'),
+                NavigationLink::make()
+                ->title(Str::ucfirst(__('home')))
+                ->forSingleton('pageHome'),
             ]),
         );
 
         Relation::enforceMorphMap([
             'page'=>'App\Models\Page',
+            'pageHome'=>'App\Models\PageHome',
         ]);
     }
 }
