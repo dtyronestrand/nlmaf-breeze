@@ -1,6 +1,6 @@
 <template>
-<component v-if="block.content.heading" :is="headingTag">
-    {{block.content.heading}}
+<component v-if="block.content.heading" :is="headingTag" class="mt-12" v-html="goldText(block.content.heading)">
+
 </component>
 </template>
 <script setup lang="ts">
@@ -29,4 +29,10 @@ const headingTag = computed(()=>{
     }
     return h2;
 });
+function goldText(sentence: string) {
+  const words = sentence.split(' ')
+  const lastTwo = words.slice(-2).join(' ')
+  const remaining = words.slice(0, -2).join(' ')
+  return `${remaining} <span class="bg-gradient-to-b from-yellow-200 to-yellow-500 bg-clip-text not-italic text-transparent">${lastTwo}</span>`
+}
 </script>

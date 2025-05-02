@@ -1,7 +1,7 @@
 <template>
     <header class="navbar">
         <div class="logo">
-            <Link href="/">NLMAF</Link>
+            <Link clas="text-[var(--color-text-primary)]" href="/">NLMAF</Link>
         </div>
         <nav class="nav-menu">
             <ul clas="nav-link">
@@ -54,7 +54,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #2c3e50;
+    background-color: var(--color-primary-500);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,7 +66,7 @@ body {
 
 /* Logo Styles */
 .logo a {
-    color: white;
+    color: var(--color-text-primary);
     font-size: 1.5rem;
     font-weight: 700;
     text-decoration: none;
@@ -74,7 +74,7 @@ body {
 }
 
 .logo a:hover {
-    color: #3498db;
+    color: var(--color-focus);
 }
 
 /* Navigation Menu Styles */
