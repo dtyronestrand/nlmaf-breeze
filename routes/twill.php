@@ -13,3 +13,4 @@ Route::group(['prefix'=>'content'], function(){
 });
 
 TwillRoutes::singleton('pageHome');
+TwillRoutes::module('profiles');

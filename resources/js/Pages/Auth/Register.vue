@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -7,109 +6,188 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    name: '',
+   first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: '',
 });
 
-const submit = () => {
+const submitRegister = () => {
     form.post(route('register'), {
         onFinish: () => {
             form.reset('password', 'password_confirmation');
         },
     });
 };
+const submitLogin = () => {
+    form.post(route('login'), {
+        onFinish: () => {
+            form.reset('password');
+        },
+    });
+};
 </script>
 
 <template>
-    <GuestLayout>
+   
         <Head title="Register" />
+<div class="formwarp">
+<div class="login-register">
+<div class="login form">
+          <form
+          id="login"
+            class="active"
+            @submit.prevent="submitRegister">
+            <div class="form-header"></div>
+            <div class="form-group">
+            <InputLabel for="first_name" value="First Name" />
+            <TextInput
+          v-model="form.first_name"
+              id="first_name"
+              type="text"
+              class="input" />
+           <InputError :message="form.errors.first_name" class="mt-2" />
+           </div>
+           <div class="form-group">
+            <InputLabel for="last_name" value="Last Name" />
+          
+            <TextInput
+          v-model="form.last_name"
+                id="last_name"
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+              type="text"
+              class="input" />
+            <InputError :message="form.errors.last_name" class="mt-2" />
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+            <div class="form-group">
+            <InputLabel for="email" value="Email" />
+            <TextInput
+          v-model="form.email"
+              id="email"
+              type="email"
+              class="input" />
+<InputError :message="form.errors.email" class="mt-2" />
+</div>
+<div class="form-group">
+            <InputLabel for="pass" value="Password" />
+            <TextInput
+          v-model="form.password"
+              id="pass"
+              type="password"
+              class="input" />
+<InputError :message="form.errors.password" class="mt-2" />
+</div>
+<div class="form-group">
+            <InputLabel for="confirm-pass" value="Confirm Password" />
+            <TextInput
+          v-model="form.password_confirmation"
+              id="confirm-pass"
+              type="password"
+              class="input" /><InputError :message="form.errors.password_confirmation" class="mt-2" />
+              </div>
+              <div class="form-bottom">
+            <PrimaryButton >Sign Up</PrimaryButton>
+            <p class="already-registered">Already have an account?<Link href="/login">Login</Link></p>
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </PrimaryButton>
-            </div>
+          </form>
+          <form @submit.prevent="forgotPassword" id="forgot-password" >
+            <div class="form-header"></div>
+            <div class="form-group">
+        </div>
         </form>
-    </GuestLayout>
+        <div class="login" :class="{ 'slide-up': isLoginSlideUp }">
+          <div class="center">
+            <h2 class="form-title" id="login" @click="toggleLogin">
+              <span>or</span>LOGIN
+            </h2>
+            <form
+              class="form-holder"
+              @submit="submitLogin">
+              <InputLabel for="email" value="Email" />
+              <TextInput
+                v-model="form.email"
+                id="email"
+                type="email"
+                class="input" /><InputError :message="form.errors.email" class="mt-2" />
+              <InputLabel for="pass" value="Password" />
+              <TextInput
+                v-model="form.password"
+                id="pass"  
+type="password"
+                class="input" /><InputError :message="form.errors.password" class="mt-2" />
+              <p class="forgot-pass">Forgot Password?</p>
+              <PrimaryButton type="submit" class="submit-btn">LOGIN</PrimaryButton>
+            </form>
+            </div>
+          </div>
+          </div>
+  </div>
+  </div>
 </template>
+<style scoped>
+.formwarp {
+  height: 100vh;
+  overflow-x: auto;
+  background-image: url(/Users/dev/Desktop/nlmaf-breeze/public/assets/images/formbg.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.login-register {
+  height: 100%;
+  display: flex;
+}
+.form {
+  background-color: var(--color-accent-500);
+  opacity: 0.8;
+  width: 450px;
+  margin: auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 2px var(--deepblue);
+}
+.form .form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.form .form-header img {
+  width: 80px;
+}
+.form .form-group {
+  margin-bottom: 15px;
+}
+.form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--color-primary-900);
+}
+.form input {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 3px;
+  color: var(--color-primary-500);
+}
+.form input:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--color-secondary-500);
+}
+.form-bottom {
+  margin-top: 20px;
+}
+.form-bottom p {
+  margin: 5px 0;
+  color: var(--color-primary-900);
+}
+.form-bottom a {
+  color: var(--color-primary);
+  font-weight: bold;
+  text-decoration: none;
+}
+#register, #forgot-password {
+  display: none;
+}
+  </style>

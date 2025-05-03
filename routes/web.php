@@ -7,8 +7,6 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PageHomeController;
 use Inertia\Inertia;
 
-Route::get('/{slug}', [PageController::class, 'show'])
-    ->name('page.show');
 
   Route::get('/', PageHomeController::class)->name('home');
 
@@ -23,3 +21,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/{slug}', [PageController::class, 'show'])
+    ->name('page.show');
