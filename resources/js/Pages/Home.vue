@@ -21,10 +21,10 @@ let blur=6;
 <template>
    
     <Head :item="item"></Head>
-    <WavyBackground :colors="colors" :blur="blur" :backgroundFill="backgroundFill"> 
+
         <div
     v-if="item?.blocks && Array.isArray(item.blocks) && item.blocks.length > 0"
-    class="mx-auto w-full max-w-6xl"
+    class="mx-auto mt-20 w-full max-w-6xl"
   >
     <div
       v-for="(block, index) in item.blocks"
@@ -39,10 +39,8 @@ let blur=6;
             :block="block"></BlockCommonHero>
     </div>
   </div>
-    </WavyBackground>
+  
 </template>
 <style scoped>
-body{
-    background-color: blue;
-}
+
 </style>

@@ -30,13 +30,12 @@ const submitLogin = () => {
 </script>
 
 <template>
-   
         <Head title="Register" />
 <div class="formwarp">
 <div class="login-register">
-<div class="login form">
+<div class="register form">
           <form
-          id="login"
+          id="register"
             class="active"
             @submit.prevent="submitRegister">
             <div class="form-header"></div>
@@ -93,15 +92,17 @@ const submitLogin = () => {
           </form>
           <form @submit.prevent="forgotPassword" id="forgot-password" >
             <div class="form-header"></div>
-            <div class="form-group">
+            <div class="form-group"><InputLabel for="email" value="Email" />
+            <TextInput
+              v-model="form.email"
+              id="email"
+              type="email"
+              class="input" />
         </div>
         </form>
-        <div class="login" :class="{ 'slide-up': isLoginSlideUp }">
-          <div class="center">
-            <h2 class="form-title" id="login" @click="toggleLogin">
-              <span>or</span>LOGIN
-            </h2>
+       
             <form
+            id="login"
               class="form-holder"
               @submit="submitLogin">
               <InputLabel for="email" value="Email" />
@@ -110,20 +111,20 @@ const submitLogin = () => {
                 id="email"
                 type="email"
                 class="input" /><InputError :message="form.errors.email" class="mt-2" />
-              <InputLabel for="pass" value="Password" />
+              <InputLabel class="mt-5" for="pass" value="Password" />
               <TextInput
                 v-model="form.password"
                 id="pass"  
 type="password"
                 class="input" /><InputError :message="form.errors.password" class="mt-2" />
-              <p class="forgot-pass">Forgot Password?</p>
+              <p class="forgot-pass mt-10 text-[var(--color-primary-100)] mb-5">Forgot Password?</p>
               <PrimaryButton type="submit" class="submit-btn">LOGIN</PrimaryButton>
             </form>
-            </div>
+         
           </div>
           </div>
   </div>
-  </div>
+  
 </template>
 <style scoped>
 .formwarp {
@@ -139,13 +140,13 @@ type="password"
   display: flex;
 }
 .form {
-  background-color: var(--color-accent-500);
+  background-color: var(--color-primary-500);
   opacity: 0.8;
   width: 450px;
   margin: auto;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 0 15px 2px var(--deepblue);
+  box-shadow: 0 0 15px 2px var(--color-secondary-500);
 }
 .form .form-header {
   text-align: center;
@@ -162,14 +163,14 @@ type="password"
   margin-bottom: 5px;
   font-weight: bold;
   cursor: pointer;
-  color: var(--color-primary-900);
+  color: var(--color-primary-100);
 }
 .form input {
   width: 100%;
   padding: 10px;
   border: 0;
   border-radius: 3px;
-  color: var(--color-primary-500);
+  color: var(--color-primary-900);
 }
 .form input:focus {
   outline: none;
@@ -180,14 +181,14 @@ type="password"
 }
 .form-bottom p {
   margin: 5px 0;
-  color: var(--color-primary-900);
+  color: var(--color-primary-100);
 }
 .form-bottom a {
-  color: var(--color-primary);
+  color: var(--color-primary-100);
   font-weight: bold;
   text-decoration: none;
 }
-#register, #forgot-password {
+ #forgot-password, #register {
   display: none;
 }
   </style>
