@@ -6,6 +6,7 @@
         "build": "vue-tsc && vite build"
     },
     "devDependencies": {
+        "@iconify/vue": "^5.0.0",
         "@inertiajs/vue3": "^2.0.0",
         "@inspira-ui/plugins": "^0.0.1",
         "@tailwindcss/forms": "^0.5.3",
@@ -27,6 +28,7 @@
     "dependencies": {
         "@fontsource/protest-revolution": "^5.2.5",
         "@vueuse/core": "^13.1.0",
+        "gsap": "^3.13.0",
         "motion-v": "^1.0.0-beta.3",
         "simplex-noise": "^4.0.3"
     }

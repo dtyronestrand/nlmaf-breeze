@@ -2,9 +2,10 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
+import WordList from '@/Components/Theme/UI/WordList.vue';
 const form = useForm({
    first_name: '',
     last_name: '',
@@ -27,16 +28,31 @@ const submitLogin = () => {
         },
     });
 };
+const displayForm:string = ref('login');
+
+const words = [
+  "joy",
+  "happiness",
+  "success",
+  "challenge",
+  "move",
+  "change",
+  "grow",
+  "experience",
+  "self",
+  "journey",
+  "sustainable"]
 </script>
 
 <template>
         <Head title="Register" />
+        <WordList :words="words" />
 <div class="formwarp">
 <div class="login-register">
 <div class="register form">
           <form
           id="register"
-            class="active"
+           :class="displayForm === 'register' ? '' : 'hidden'"
             @submit.prevent="submitRegister">
             <div class="form-header"></div>
             <div class="form-group">
@@ -87,10 +103,11 @@ const submitLogin = () => {
               </div>
               <div class="form-bottom">
             <PrimaryButton >Sign Up</PrimaryButton>
-            <p class="already-registered">Already have an account?<Link href="/login">Login</Link></p>
+            <br/>
+            <button  type="button" @click="displayForm='login'" class="mt-4 text-neutral-100 already-registered">Already have an account? Login</button>
             </div>
           </form>
-          <form @submit.prevent="forgotPassword" id="forgot-password" >
+          <form :class="displayForm === 'forgot-password' ? '' : 'hidden'"  @submit.prevent="forgotPassword" id="forgot-password" >
             <div class="form-header"></div>
             <div class="form-group"><InputLabel for="email" value="Email" />
             <TextInput
@@ -99,12 +116,13 @@ const submitLogin = () => {
               type="email"
               class="input" />
         </div>
+        <PrimaryButton type="submit" class="submit-btn">Send Password Reset Link</PrimaryButton>
         </form>
        
             <form
             id="login"
               class="form-holder"
-              @submit="submitLogin">
+              @submit="submitLogin "  :class="displayForm === 'login' ? '' : 'hidden'">
               <InputLabel for="email" value="Email" />
               <TextInput
                 v-model="form.email"
@@ -117,10 +135,11 @@ const submitLogin = () => {
                 id="pass"  
 type="password"
                 class="input" /><InputError :message="form.errors.password" class="mt-2" />
-              <p class="forgot-pass mt-10 text-[var(--color-primary-100)] mb-5">Forgot Password?</p>
+              <button type="button" @click="displayForm='forgot-password'" class="forgot-pass mt-10 text-[var(--color-primary-100)] mb-5">Forgot Password?</button><br/>
+              <button type="button" @click="displayForm='register'" class="register-btn text-[var(--color-primary-100)] mb-5">Don't have an account? Register</button><br/>
               <PrimaryButton type="submit" class="submit-btn">LOGIN</PrimaryButton>
             </form>
-         
+        
           </div>
           </div>
   </div>
@@ -130,7 +149,7 @@ type="password"
 .formwarp {
   height: 100vh;
   overflow-x: auto;
-  background-image: url(/Users/dev/Desktop/nlmaf-breeze/public/assets/images/formbg.webp);
+
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -188,7 +207,5 @@ type="password"
   font-weight: bold;
   text-decoration: none;
 }
- #forgot-password, #register {
-  display: none;
-}
+
   </style>
