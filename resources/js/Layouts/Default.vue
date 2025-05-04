@@ -7,6 +7,7 @@
             <ul clas="nav-link">
                 <li></li>
             </ul>
+            <form @submit.prevent="handleLogout"><PrimaryButton type="submit">Logout</PrimaryButton></form>
         </nav>
         <div class="hamburger">
             <span class="barr"></span>
@@ -20,7 +21,13 @@
 </template>
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+const form = useForm();
+const handleLogout = ()=>{
+    form.post(route('logout'));
+}
 </script>
 <style scoped>
 /* Reset some default browser styles */
