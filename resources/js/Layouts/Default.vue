@@ -7,7 +7,7 @@
             <ul clas="nav-link">
                 <li></li>
             </ul>
-            <form @submit.prevent="handleLogout"><PrimaryButton type="submit">Logout</PrimaryButton></form>
+            <form @submit.prevent="handleLogout" class="flex p-10"><PrimaryButton  type="submit">Logout</PrimaryButton></form>
         </nav>
         <div class="hamburger">
             <span class="barr"></span>
@@ -31,16 +31,7 @@ const handleLogout = ()=>{
 </script>
 <style scoped>
 /* Reset some default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
 
-body {
-    background-color: #f5f5f5;
-}
 
 /* Basic content styling for demo */
 .content {
