@@ -10,7 +10,9 @@ declare namespace Model {
         editor_name: string
         position: number
         type: string
-        content:{ } | unknown
+        content:{ } | null
+        childs: Array<Block> | null
+        medias: {} | null
     }
     export type Media = {
         alt?: string

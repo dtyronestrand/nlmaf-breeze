@@ -7,6 +7,11 @@ use Illuminate\Support\Arr;
 
 class Model extends TwillModel
 {
+    public function computeActiveSlug(): void
+    {
+        $this->activeSlug = $this->getSlug();
+        $this->unsetRelation('slugs');
+    }
     public function computeBlocks(string $locale = null): void
     {
         $locale = $locale ?? app()->getLocale();
