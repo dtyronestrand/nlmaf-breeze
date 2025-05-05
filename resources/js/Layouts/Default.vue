@@ -7,7 +7,10 @@
             <ul clas="nav-link">
                 <li></li>
             </ul>
-            <form @submit.prevent="handleLogout" class="flex p-10"><PrimaryButton  type="submit">Logout</PrimaryButton></form>
+            <form v-if="$page.props.auth.user" @submit.prevent="handleLogout" class="flex p-10"><PrimaryButton  type="submit">Logout</PrimaryButton></form>
+            <form v-else class="flex p-10">
+                <Link :href="route('register')" class="text-[var(--color-text-primary)]">Login</Link>
+            </form>
         </nav>
         <div class="hamburger">
             <span class="barr"></span>

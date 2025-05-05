@@ -1,18 +1,18 @@
 <script setup lang="ts">
+import { usePage } from "@inertiajs/vue3";
 import Head from "../Components/Theme/Head.vue";
 import WavyBackground from "../Components/Theme/UI/WavyBackground.vue";
-import { defineAsyncComponent } from "vue";
-defineOptions({
-    layoutName: "Default",
 
-});
+import { defineAsyncComponent } from "vue";
+
+
 
 interface Props {
     item: Model.Page;
 }
 const BlockCommonHeading = defineAsyncComponent(() => import("../Components/Theme/Block/Common/Heading.vue"));
 const BlockCommonHero = defineAsyncComponent(() => import("../Components/Theme/Block/Common/Hero.vue"));
-defineProps<Props>();
+const props = defineProps<Props>();
 let colors=["#406db3", "#d6682f", "#d6b522"];
 let backgroundFill = "#161616";
 let blur=6;

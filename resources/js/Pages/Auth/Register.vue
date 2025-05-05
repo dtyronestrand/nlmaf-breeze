@@ -6,6 +6,9 @@ import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import WordList from '@/Components/Theme/UI/WordList.vue';
+defineOptions({
+    layoutName: 'GuestLayout',
+});
 const form = useForm({
    first_name: '',
     last_name: '',
@@ -22,11 +25,7 @@ const submitRegister = () => {
     });
 };
 const submitLogin = () => {
-    form.post(route('login'), {
-        onFinish: () => {
-            form.reset('password');
-        },
-    });
+    form.post(route('login'));
 };
 const displayForm:string = ref('login');
 
@@ -122,7 +121,7 @@ const words = [
             <form
             id="login"
               class="form-holder"
-              @submit="submitLogin "  :class="displayForm === 'login' ? '' : 'hidden'">
+              @submit.prevent="submitLogin "  :class="displayForm === 'login' ? '' : 'hidden'">
               <InputLabel for="email" value="Email" />
               <TextInput
                 v-model="form.email"

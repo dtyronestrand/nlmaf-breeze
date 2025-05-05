@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest; // Make sure this use statement is present
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // Keep this for the destroy method
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
+            'status' => session('status'), // Using helper here is fine too
         ]);
     }
 
@@ -31,8 +31,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // Regenerate the session ID using the global helper
+        session()->regenerate(); // <--- Use the helper function
 
+        // Redirect to the intended URL or the dashboard route
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -43,9 +45,13 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        // You can use the helper here too for consistency, though $request->session() should work
+        session()->invalidate();
+        session()->regenerateToken();
 
-        $request->session()->regenerateToken();
+        // Or keep the original if it wasn't causing issues:
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
 
         return redirect('/');
     }

@@ -12,20 +12,18 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-[var(--color-base-500)]">
             <nav
-                class="border-b border-gray-100 bg-white"
+                class="border-b border-[var(--color-accent-500)] bg-[var(--color-primary-500)]"
             >
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 justify-between">
                         <div class="flex">
                             <!-- Logo -->
-                            <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
+                            <div class="flex -ml-12 items-center">
+                                <Link class="text-[var(--color-text-primary)] text-xl font-bold hover:text-[var(--color-accent-500)]" :href="route('home')">
+                           NLMAF
                                 </Link>
                             </div>
 
@@ -33,7 +31,7 @@ const showingNavigationDropdown = ref(false);
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
-                                <NavLink
+                                <NavLink 
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
@@ -50,9 +48,10 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                                class="inline-flex items-center rounded-md border border-transparent bg-[var(--color-accent-500)] px-3 py-2 text-sm font-medium leading-4 text-[var(--color-text-inverse)]transition duration-150 ease-in-out hover:text-[var(--color-primary-600)] focus:outline-none"
                                             >
-                                                {{ $page.props.auth.user.name }}
+                                                {{ $page.props.auth.user.first_name }}
+                                                {{ $page.props.auth.user.last_name }}
 
                                                 <svg
                                                     class="-me-0.5 ms-2 h-4 w-4"
@@ -156,7 +155,8 @@ const showingNavigationDropdown = ref(false);
                             <div
                                 class="text-base font-medium text-gray-800"
                             >
-                                {{ $page.props.auth.user.name }}
+                                {{ $page.props.auth.user.first_name }}
+                                {{ $page.props.auth.user.last_name }}
                             </div>
                             <div class="text-sm font-medium text-gray-500">
                                 {{ $page.props.auth.user.email }}
