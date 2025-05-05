@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePage } from "@inertiajs/vue3";
+
 import Head from "../Components/Theme/Head.vue";
-import WavyBackground from "../Components/Theme/UI/WavyBackground.vue";
+
 
 import { defineAsyncComponent } from "vue";
 

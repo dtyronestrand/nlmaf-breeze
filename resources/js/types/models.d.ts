@@ -3,14 +3,14 @@ declare namespace Model {
       title: string
       meta_title?: string
       meta_description?: string
-      block?: Array<Block> | null
+      blocks?: Array<Block> | null
       medias: {} | null
     }
     export type Block ={
         editor_name: string
         position: number
         type: string
-        content: {} | null
+        content:{ } | unknown
     }
     export type Media = {
         alt?: string
