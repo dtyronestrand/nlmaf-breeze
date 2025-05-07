@@ -18,7 +18,7 @@
             <span class="barr"></span>
         </div>
     </header>
-    <main>
+    <main class="mt-[70px]">
         <slot></slot>
     </main>
 </template>

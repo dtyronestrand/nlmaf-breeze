@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 :root {
+  --card-height: 40vw;
+  --card-margin: 3vw;
+  --card-top-offset: 2em;
+  --numcards: 3;
+  --outline-width: 0px;
     /* 🔴 Primary - Ember Red */
     --color-primary-100: #f9e4e2;
     --color-primary-200: #f2c1be;
@@ -86,6 +91,8 @@
   
   body{
     background-color: var(--color-base-500);
+    display:grid;
+    
   }
   h1{
     font-family: 'Protest Revolution', serif;
