@@ -38,10 +38,13 @@ class AppServiceProvider extends ServiceProvider
                 ->forSingleton('pageHome'),
             ]),
         );
-
+        TwillNavigation::addLink(
+            NavigationLink::make()->forModule('menuLinks')->title('Menu')
+        );
         Relation::enforceMorphMap([
             'page'=>'App\Models\Page',
             'pageHome'=>'App\Models\PageHome',
+            'menuLink'=>'App\Models\MenuLink',
         ]);
     }
 }
