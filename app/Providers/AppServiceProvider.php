@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             ]),
         );
         TwillNavigation::addLink(
-            NavigationLink::make()->forModule('menuLinks')->title('Menu')
+            NavigationLink::make()->forModule('menuLinks')->title(Str::ucfirst(__('Menu')))
         );
         Relation::enforceMorphMap([
             'page'=>'App\Models\Page',

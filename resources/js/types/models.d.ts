@@ -14,6 +14,10 @@ declare namespace Model {
         childs: Array<Block> | null
         medias: {} | null
     }
+    export type MenuLinks ={
+      title?: string | null
+      related: Model.Page | null
+    }
     export type Media = {
         alt?: string
         caption?: string

@@ -34,6 +34,12 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+
+    'menuLinks' => \App\Models\MenuLink::published()->get()
+            
+            
+
+
         ];
     }
 }

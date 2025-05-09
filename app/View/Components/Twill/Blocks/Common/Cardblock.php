@@ -25,6 +25,7 @@ class Cardblock extends Base
             ->options(
                 Options::make([
                     Option::make('default', 'Default'),
+                    Option::make('hover', 'Hover'),
                     Option::make('stack', 'Stacked'),
                 ])
                 ),

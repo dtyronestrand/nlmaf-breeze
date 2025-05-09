@@ -11,8 +11,7 @@ return new class extends Migration
         Schema::create('menu_links', function (Blueprint $table) {
             // this will create an id, a "published" column, and soft delete and timestamps columns
             createDefaultTableFields($table);
-            $table->string('title',200)->nullable();
-            $table->integer('position')->unsigned()->nullable();
+        
             
             // add those 2 columns to enable publication timeframe fields (you can use publish_start_date only if you don't need to provide the ability to specify an end date)
             // $table->timestamp('publish_start_date')->nullable();
@@ -21,10 +20,17 @@ return new class extends Migration
             // this will create the required columns to support nesting for this module
             $table->nestedSet();
         });
-
+        Schema::table('menu_links', function (Blueprint $table) {
+            $table->string('title',200)->nullable();
+            $table->integer('position')->unsigned()->nullable();
+            $table->string('url')->nullable()->after('position');
+    $table->boolean('has_submenu')->default(false)->after('url');
+    $table->json('submenu')->nullable()->after('has_submenu');
+        });
         Schema::create('menu_link_translations', function (Blueprint $table) {
             createDefaultTranslationsTableFields($table, 'menu_link');
             $table->string('title', 200)->nullable();
+            $table->string('url')->nullable()->after('title');
         
         });
 

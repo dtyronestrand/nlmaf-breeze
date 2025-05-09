@@ -10,9 +10,9 @@ Route::get('preview', PreviewController::class)->name('preview');
 // TwillRoutes::module('posts');
 Route::group(['prefix'=>'content'], function(){
     TwillRoutes::module('pages');
-    TwillRoutes::singleton('pageHome');
+ 
 });
 
-
-TwillRoutes::module('profiles');
+TwillRoutes::singleton('pageHome');
 TwillRoutes::module('menuLinks');
+TwillRoutes::module('profiles');

@@ -7,7 +7,7 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import WordList from '@/Components/Theme/UI/WordList.vue';
 defineOptions({
-    layoutName: 'GuestLayout',
+    layoutName: 'Default',
 });
 const form = useForm({
    first_name: '',
@@ -46,7 +46,7 @@ const words = [
 <template>
         <Head title="Register" />
         <WordList :words="words" />
-<div class="formwarp">
+<div class="formwarp ">
 <div class="login-register">
 <div class="register form">
           <form
@@ -158,13 +158,13 @@ type="password"
   display: flex;
 }
 .form {
-  background-color: var(--color-primary-500);
+  background-color: var(--color-base-500);
   opacity: 0.8;
   width: 450px;
   margin: auto;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 0 15px 2px var(--color-secondary-500);
+  box-shadow: 0 0 15px 2px var(--color-accent-500);
 }
 .form .form-header {
   text-align: center;
@@ -181,28 +181,28 @@ type="password"
   margin-bottom: 5px;
   font-weight: bold;
   cursor: pointer;
-  color: var(--color-primary-100);
+  color: var(--color-text-primary);
 }
 .form input {
   width: 100%;
   padding: 10px;
   border: 0;
   border-radius: 3px;
-  color: var(--color-primary-900);
+  color: var(--color-neutral-900);
 }
 .form input:focus {
   outline: none;
-  box-shadow: 0 0 10px var(--color-secondary-500);
+  box-shadow: 0 0 10px var(--color-accent-500);
 }
 .form-bottom {
   margin-top: 20px;
 }
 .form-bottom p {
   margin: 5px 0;
-  color: var(--color-primary-100);
+  color: var(--color-text-primary);
 }
 .form-bottom a {
-  color: var(--color-primary-100);
+  color: var(--color-text-primary);
   font-weight: bold;
   text-decoration: none;
 }

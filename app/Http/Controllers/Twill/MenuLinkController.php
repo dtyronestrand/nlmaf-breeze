@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Twill;
 use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
-use A17\Twill\Services\Forms\Fields\Browser;
+use A17\Twill\Services\Forms\Fields\Input;
+use A17\Twill\Services\Forms\Fields\Checkbox;
+use A17\Twill\Services\Forms\InlineRepeater;
 use A17\Twill\Services\Forms\Form;
 use App\Http\Controllers\Twill\Base\ModuleController as BaseModuleController;
-use App\Models\Page;
-use App\Models\PageHome;
+use App\Models\Base\Model;
 class MenuLinkController extends BaseModuleController
 {
     protected $moduleName = 'menuLinks';
@@ -31,14 +32,43 @@ class MenuLinkController extends BaseModuleController
     public function getForm(TwillModelContract $model): Form
     {
         $form = parent::getForm($model);
-    $form->add(
-        Browser::make()
-            ->routePrefix('content')
-            ->name('page')
-            ->modules(['page', 'pageHome'])
-    );
+       $form->add(
+            Input::make()
+            ->name('title')
+            ->label('Title')
+            ->translatable()
+       );
+       $form->add(
+            Input::make()
+            ->name('url')
+            ->label('URL')
+       
+      );
+      $form->add(
+        Checkbox::make()
+        ->name('has_submenu')
+        ->label('Has Submenu')
+      
+      );
+      $form->add(
+        InlineRepeater::make()
+        ->name('submenu')
+        ->label('Sub Menu Item')
+        ->triggerText('Add Sub Menu Item')
+        ->fields([
+            Input::make()
+            ->name('title')
+            ->label('Title'),
+       
+            Input::make()
+            ->name('url')
+            ->label('URL')
+    
+      ])->connectedTo('has_submenu', true)
+        );
+            return $form;
 
-        return $form;
+    
     }
 
     /**
