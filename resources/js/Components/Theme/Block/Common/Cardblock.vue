@@ -12,7 +12,6 @@
     </div>
 </div>
 </div>
-
 <div class="mt-[100px] relative" v-else-if="block.content.type === 'stack'">
 
 <h1 class="text-[var(--color-text-primary)] text-center text-5xl md:text-7xl text-balance ">{{block.content.heading}}</h1>
@@ -30,18 +29,6 @@
     </div>
 </li>
 </ul>
-</div>
-<div v-else>
-<h1 class="text-[var(--color-text-primary)] text-center text-5xl md:text-7xl text-balance ">{{block.content.heading}}</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-    <div v-for="(child, index) in block.childs" :key="index" class="bg-white rounded-lg shadow-lg p-6 image-area">
-		<div class="img-wrapper">
-		<img :src="child.medias.image.default.src" alt="child.content.heading"/>
-      <h2 class="text-xl font-semibold mb-4">{{ child.content.heading }}</h2>
-     <p>{{child.content.details}}</p>
-     </div>
-		</div>
-	</div>
 </div>
 </template>
 <script setup lang="ts">
@@ -111,9 +98,9 @@ function goldText(sentence: string) {
 }
 
 .card-content {
-  box-shadow: 0 0.5em 2em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
-  background-color: rgba( 18,18,18,0.5);
-  backdrop-filter: blur(5px);
+  box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+  background-color: rgba( 18,18,18,0.4);
+  backdrop-filter: blur(10px);
   border:2px solid var(--color-primary-500);
   color: var(--color-text-primary);
   border-radius: 2rem;
@@ -211,139 +198,4 @@ p {
   }
 }
 
-.image-area
-{
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	position: absolute;
-}
-
-.img-wrapper
-{
-	width: 300px;
-	height: 400px;
-	position: relative;
-	overflow: hidden;
-}
-
-.img-wrapper:before
-{
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 180%;
-	height: 100%;
-	width: 100%;
-	background: rgba(255,255,255,.3);
-	z-index: 1;
-	transform: skew(45deg);
-	transition: .5s;
-}
-
-.img-wrapper:hover:before
-{
-	left: -180%;
-}
-
-.img-wrapper img
-{
-	height: 500px;
-	width: 400px;
-	filter: grayscale(100%);
-	transition: 2s;
-}
-.img-wrapper:hover img
-{
-	filter: grayscale(0%);
-	transform: scale(1.1);
-}
-
-.img-wrapper h2
-{
-	background: var(--color-primary-500);
-	font-family: Poppins;
-	color: var(--color-text-primary);
-	text-align: center;
-	text-transform: uppercase;
-	margin: 0;
-	padding: 10px 0;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	transform: perspective(400px) rotateY(90deg);
-	transform-origin: right;
-	transition: 1s;
-}
-
-.img-wrapper:hover h2
-{
-	transform: perspective(400px) rotateY(0deg);
-}
-
-.img-wrapper ul
-{
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	background: var(--color-base-500);
-}
-
-.img-wrapper ul li
-{
-	background: var(--color-base-500);
-	height: 40px;
-	width: 40px;
-	text-align: center;
-	line-height: 1em;
-	transform: perspective(800px) rotateY(90deg);
-	transition: .5s;
-	transform-origin: left;
-}
-
-.img-wrapper:hover ul li
-{
-	transform: perspective(800px) rotateY(0deg);
-}
-
-.img-wrapper:hover ul li:nth-child(1)
-{
-	transition-delay: .2s;
-}
-
-.img-wrapper:hover ul li:nth-child(2)
-{
-	transition-delay: .6s;
-}
-
-.img-wrapper:hover ul li:nth-child(3)
-{
-	transition-delay: .8s;
-}
-
-.img-wrapper:hover ul li:nth-child(4)
-{
-	transition-delay: 1s;
-}
-
-.img-wrapper ul li a
-{
-	color: tomato;
-	background: rgba(255,255,255,0);
-}
-
-.img-wrapper ul li i
-{
-	color: tomato;
-	background: rgba(255,255,255,0);
-}
-
-.img-wrapper ul li i:hover
-{
-	color: #fff;
-	background: rgba(255,255,255,0);
-}
 </style>
