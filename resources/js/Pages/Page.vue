@@ -1,14 +1,14 @@
 <script setup  lang="ts">
 import Head from '@/Components/Theme/Head.vue'
 import { defineAsyncComponent } from 'vue'
-import Menu from '@/Components/Menu.vue'
+
 interface Props {
     item: Model.Page
     locale: string
 }
 defineProps<Props>()
 const BlockCommonHeading = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Heading.vue'))
-const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/CardBlock.vue'))
+const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Cardblock.vue'))
 </script>
 <template>
     <Head :item="item"></Head>
@@ -25,16 +25,8 @@ const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/The
         v-if="block.type == 'common-heading'"
         :block="block"
       ></BlockCommonHeading>
-      <div v-if="block.type == 'common-cardblock'" class="gradient-background">
-        <div class="gradient-sphere sphere-1"></div>
-        <div class="gradient-sphere sphere-2"></div>
-        <div class="gradient-sphere sphere-3"></div>
-        <div class="glow"></div>
-        <div class="grid-overlay"></div>
-        <div class="noise-overlay"></div>
-      </div>
+
       <BlockCommonCardblock
-        
         :block="block"
       ></BlockCommonCardblock>
   
@@ -150,7 +142,7 @@ const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/The
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
+            z-index: 1;
             animation: pulse 8s infinite alternate;
             filter: blur(30px);
         }

@@ -39,5 +39,6 @@ class Page extends Model implements Sortable
         'meta_title',
         'meta_description',
         'blocks',
+        'position',
     ];
 }

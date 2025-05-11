@@ -10,9 +10,9 @@ declare namespace Model {
         editor_name: string
         position: number
         type: string
-        content:{ } | null
+        content: any | null
         childs: Array<Block> | null
-        medias: {} | null
+        medias: any | null
     }
     export type MenuLinks ={
       title?: string | null

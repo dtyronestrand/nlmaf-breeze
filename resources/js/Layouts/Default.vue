@@ -32,7 +32,7 @@
 </div>
    </nav>
    </header>
-    <main class="mt-[70px]">
+    <main>
         <slot></slot>
     </main>
 </template>
