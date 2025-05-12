@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PageHomeController;
-use App\Http\Controllers\Twill\MenuLinkController;
+use App\Http\Controllers\ContactController;
 use Inertia\Inertia;
 
 
@@ -22,6 +21,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'store'])
+    ->name('contact.store');
 Route::get('/{slug}', [PageController::class, 'show'])
     ->name('page.show');

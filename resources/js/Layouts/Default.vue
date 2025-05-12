@@ -32,7 +32,7 @@
 </div>
    </nav>
    </header>
-    <main>
+    <main class="relative">
         <slot></slot>
     </main>
 </template>
@@ -248,5 +248,8 @@ justify-content: space-between;
     background: rgba(33, 150, 243, 0.15);
     color: var(--primary-color);
     transform: translateX(5px);
+}
+main{
+    padding-top: 4rem;
 }
 </style>
