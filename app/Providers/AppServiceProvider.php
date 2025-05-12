@@ -36,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
                 NavigationLink::make()
                 ->title(Str::ucfirst(__('home')))
                 ->forSingleton('pageHome'),
+                NavigationLink::make()
+                ->title(Str::ucfirst(__('programs')))
+                ->forModule('programs'),
+              
             ]),
         );
         TwillNavigation::addLink(
@@ -45,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
             'page'=>'App\Models\Page',
             'pageHome'=>'App\Models\PageHome',
             'menuLink'=>'App\Models\MenuLink',
+            'program'=>'App\Models\Program',
         ]);
     }
 }
