@@ -18,17 +18,37 @@ class PageController extends Controller
 
         $item = Cache::rememberForever('page.' . $locale . '.' . $slug,
             function () use ($slug, $locale) { // Pass locale into closure if needed inside
-                $item = Page::publishedInListings()
-                    ->forSlug($slug)
-                    ->first();
+                $pathSegments = explode('/', $slug);
+                $leafSlug = array_pop($pathSegments);
+                $page = Page::publishedInListings()
+                ->forSlug($leafSlug)
+                ->first();
 
-                if ($item !== null) {
-                    $item->load('translations', 'medias', 'blocks');
-                    // Pass locale explicitly if computeBlocks needs it immediately
-                    // though it defaults to app()->getLocale() anyway
-                    $item->computeBlocks($locale);
+                if (!$page) {
+              return null;
                 }
-                return $item;
+                $tempParent = $page->parent;
+                for ($i = count($pathSegments)-1; $i >= 0; $i--){
+                    $expectedParentSlug = $pathSegments[$i];
+
+                    if (!$tempParent) {
+                        return null;
+                    }
+                    if ($tempParent->slug !==$expectedParentSlug){
+                        return null;
+                    }
+                    $tempParent = $tempParent->parent;
+                }
+                if ($tempParent !== null) {
+                    return null;
+                }
+                
+                // If we reach here, the page is found, it's publishedInListings, and its ancestry matches the path.
+                $page->load('translations', 'medias', 'blocks');
+                // Pass locale explicitly if computeBlocks needs it immediately
+                // though it defaults to app()->getLocale() anyway
+                $page->computeBlocks($locale);
+                return $page;
             }
         );
 
@@ -41,3 +61,4 @@ class PageController extends Controller
         ]);
     }
 }
+
