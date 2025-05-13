@@ -7,17 +7,17 @@ use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
 use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Fieldset;
-use App\Http\Controllers\Twill\Base\ModuleController as BaseModuleController;
+use A17\Twill\Http\Controllers\Admin\NestedModuleController;
 use App\Models\Base\Model;
 
 
-class PageController extends BaseModuleController
+class PageController extends NestedModuleController
 {
   
 
     protected $moduleName = 'pages';
-    protected $showOnlyParentItemsInBrowsers = true;
-    protected $nestedItemsDepth = 1;
+    protected $showOnlyParentItemsInBrowsers = false;
+    protected $nestedItemsDepth = 2;
     /**
      * This method can be used to enable/disable defaults. See setUpController in the docs for available options.
      */
@@ -26,12 +26,25 @@ class PageController extends BaseModuleController
         $this->setPermalinkBase('');
         $this->withoutLanguageInPermalink();
         $this->enableReorder();
+        $this->nestedItemsDepth = 2;
+    }
+
+
+    protected function form(?int $id, ?TwillModelContract $item = null): array
+    {
+        $data = parent::form($id, $item);
+
+        $data['baseUrl'] = $data['baseUrl'] . $data['item']->ancestorsSlug . '/';
+
+        return $data;
     }
 
     /**
      * See the table builder docs for more information. If you remove this method you can use the blade files.
      * When using twill:module:make you can specify --bladeForm to use a blade form instead.
      */
+
+
     public function getForm(TwillModelContract $model): Form
     {
         $form = parent::getForm($model);
