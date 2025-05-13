@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
+import IconButton from '../Components/Theme/UI/IconButton.vue';
 
 const form = useForm({
    first_name: '',
@@ -56,7 +56,7 @@ const submit = () => {
 
    <label for="message" class="text-[var(--color-text-primary)]">Message</label>
    <textarea id="message" v-model="form.message" class="border-2 border-[var(--color-accent-500)]"></textarea>
-   <button type="submit" class="mt-6 mb-10 p-2 bg-[var(--color-accent-500)] text-[var(--color-text-primary )]">Submit</button>
+   <IconButton type="submit" class="mt-6 mb-10 p-2 bg-[var(--color-accent-500)] text-[var(--color-text-primary )]">Submit</IconButton>
    <InputError :message="form.errors.message" class="mt-2" />
    </div>
    </div>    

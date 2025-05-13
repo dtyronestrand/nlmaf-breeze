@@ -27,6 +27,7 @@ const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/The
       ></BlockCommonHeading>
 
       <BlockCommonCardblock
+        v-if="block.type == 'common-cardblock'"
         :block="block"
       ></BlockCommonCardblock>
   

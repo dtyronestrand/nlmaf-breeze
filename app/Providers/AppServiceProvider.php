@@ -31,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
             ->donotAddSelfAsFirstChild()
             ->setChildren([
                 NavigationLink::make()
-                ->title(Str::ucfirst(__('pages')))
-                ->forModule('pages'),
-                NavigationLink::make()
                 ->title(Str::ucfirst(__('home')))
                 ->forSingleton('pageHome'),
+                NavigationLink::make()
+                ->title(Str::ucfirst(__('pages')))
+                ->forModule('pages'),
             ]),
         );
         TwillNavigation::addLink(

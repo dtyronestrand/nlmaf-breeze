@@ -25,4 +25,5 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact.show')
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
 Route::get('/{slug}', [PageController::class, 'show'])
+->where('slug','.*')
     ->name('page.show');

@@ -14,14 +14,14 @@
 </div>
 <div class="mt-[100px] relative" v-else-if="block.content.type === 'stack'">
 
-<h1 class="text-[var(--color-text-primary)] text-center text-5xl md:text-7xl text-balance ">{{block.content.heading}}</h1>
+<h1 class="text-[var(--color-text-primary)] mb-12 text-center text-shadow-[var(--color-accent-500)] text-5xl md:text-7xl text-balance ">{{block.content.heading}}</h1>
 
-<ul id="cards">
+<ul id="cards ">
 <li v-for="(child, index) in block.childs" :key="index" class="card" id="`card-${index}`">
     <div class="card-content">
     <div>
-        <h2 class="card-title" v-html="goldText(child.content.heading)"></h2>
-        <p class="card-details">{{ child.content.details }}</p>
+        <h2 class="card-title text-3xl" v-html="goldText(child.content.heading)"></h2>
+        <p class="card-details text-lg mt-10">{{ child.content.details }}</p>
         </div>
         <figure v-if="child.medias.image" class="card-image">
             <img :src="child.medias.image.default.src" alt="Child Image" class="w-full h-auto rounded-lg">
@@ -29,6 +29,19 @@
     </div>
 </li>
 </ul>
+</div>
+<div class="mt-[100px] relative" v-else-if="block.content.type === 'profile'">
+<h1 class="text-[var(--color-text-primary)] mx-auto text-center text-shadow-[var(--color-accent-500)] text-5xl md:text-7xl text-balance mb-12 ">{{block.content.heading}}</h1>
+<div class="flex flex-row content-between justify-center gap-6 ">
+<div v-for="(child, index) in block.childs" :key="index"class="profile-card border border-[var(--color-accent-500)] rounded-lg shadow-lg p-6 wallet">
+<div class="overlay"></div>
+<div class="circle object-contain">
+<img :src="child.medias.image.default.src" alt="child content.heading" class=" h-full rounded-full">
+</div>
+<h2 class="text-xl font-semibold mt-4 mb-4 text-center text-[var(--color-text-primary)]">{{ child.content.heading }}</h2>
+<p class="text-[var(--color-text-primary)] mb-4 text-center">{{ child.content.details }}</p>
+</div>
+</div>
 </div>
 </template>
 <script setup lang="ts">
@@ -99,9 +112,9 @@ function goldText(sentence: string) {
 
 .card-content {
   box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
-  background-color: rgba( 18,18,18,0.4);
+  background-color: var(--color-base-900);
   backdrop-filter: blur(10px);
-  border:2px solid var(--color-primary-500);
+  border:2px solid var(--color-accent-500);
   color: var(--color-text-primary);
   border-radius: 2rem;
   overflow: hidden;
@@ -136,24 +149,7 @@ function goldText(sentence: string) {
   border-radius: .4em;
 }
 
-h1 {
-  font-weight: 300;
-  font-size: 5rem;
-  margin-bottom: 3rem;
-}
 
-h2 {
-  font-weight: bold;
-  font-size: 2.5rem;
-
-  margin: 0;
-}
-
-p {
-  font-weight: 300;
-  line-height: 1.72;
-  font-size: 1.5rem;
-}
 
 /* Animation */
 @supports (animation-timeline: works) {
@@ -198,4 +194,94 @@ p {
   }
 }
 
+
+.profile-card {
+  width: 320px;
+  height: 421px;
+  background: var(--color-base-900);
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  
+
+position:relative;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease-out;
+  text-decoration: none;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px) scale(1.005) translateZ(0);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+    0 24px 46px var(--color-base-900);
+}
+
+.profile-card:hover .overlay {
+  transform: scale(4) translateZ(0);
+}
+
+.profile-card:hover .circle {
+  border-color: var(--color-primary-500);
+  background: var(--color-primary-500);
+}
+
+.profile-card:hover .circle:after {
+  background: var(--bg-color-primary-500);
+}
+
+.profile-card:hover p {
+  color: var(--color-accent-500);
+}
+
+.profile-card p {
+  font-size: 1.5rem;
+  color: var(-color-text-primary);
+  margin-top: 30px;
+  z-index: 1000;
+  transition: color 0.3s ease-out;
+}
+
+.circle {
+  width: 231px;
+  height: 231px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--color-accent-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease-out;
+}
+
+.circle:after {
+  content: "";
+  width: 118px;
+  height: 118px;
+  display: block;
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  top: 7px;
+  left: 7px;
+  transition: opacity 0.3s ease-out;
+}
+
+.circle img {
+  z-index: 10000;
+  transform: translateZ(0);
+}
+
+.overlay {
+  width: 118px;
+  position: absolute;
+  height: 118px;
+  border-radius: 50%;
+  background: var(--color-primary-500);
+  opacity: 0.5;
+  top: 70px;
+  left: 50px;
+  z-index: 0;
+  transition: transform 0.3s ease-out;
+}
 </style>

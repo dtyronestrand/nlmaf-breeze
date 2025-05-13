@@ -6,6 +6,7 @@ import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import WordList from '@/Components/Theme/UI/WordList.vue';
+import IconButton from '../../Components/Theme/UI/IconButton.vue';
 defineOptions({
     layoutName: 'Default',
 });
@@ -101,7 +102,7 @@ const words = [
               class="input" /><InputError :message="form.errors.password_confirmation" class="mt-2" />
               </div>
               <div class="form-bottom">
-            <PrimaryButton >Sign Up</PrimaryButton>
+            <IconButton >Sign Up</IconButton>
             <br/>
             <button  type="button" @click="displayForm='login'" class="mt-4 text-neutral-100 already-registered">Already have an account? Login</button>
             </div>
@@ -115,7 +116,7 @@ const words = [
               type="email"
               class="input" />
         </div>
-        <PrimaryButton type="submit" class="submit-btn">Send Password Reset Link</PrimaryButton>
+        <IconButton type="submit" class="submit-btn">Send Password Reset Link</IconButton>
         </form>
        
             <form
@@ -136,7 +137,7 @@ type="password"
                 class="input" /><InputError :message="form.errors.password" class="mt-2" />
               <button type="button" @click="displayForm='forgot-password'" class="forgot-pass mt-10 text-[var(--color-primary-100)] mb-5">Forgot Password?</button><br/>
               <button type="button" @click="displayForm='register'" class="register-btn text-[var(--color-primary-100)] mb-5">Don't have an account? Register</button><br/>
-              <PrimaryButton type="submit" class="submit-btn">LOGIN</PrimaryButton>
+              <IconButton type="submit" class="submit-btn">LOGIN</IconButton>
             </form>
         
           </div>

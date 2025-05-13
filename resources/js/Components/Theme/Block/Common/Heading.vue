@@ -1,5 +1,5 @@
 <template>
-<component v-if="block.content.heading" :is="headingTag" class="mt-12" v-html="goldText(block.content.heading)">
+<component v-if="block.content.heading" :is="headingTag" class="mt-12 text-balance text-center text-5xl md:text-7xl text-[var(--color-text-primary)]" v-html="goldText(block.content.heading)">
 
 </component>
 </template>
