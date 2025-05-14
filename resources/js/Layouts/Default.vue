@@ -30,18 +30,53 @@
 </li>
 </ul>
 </div>
+<div v-if="$page.props.user" class="nav-actions">
+<SecondaryButton @click="handleLogout">Logout</SecondaryButton>
+</div>
+<div v-else class="nav-actions">
+<SecondaryButton @click="handleLogin">Login</SecondaryButton>
+</div>
    </nav>
    </header>
     <main class="relative">
         <slot></slot>
     </main>
+    <footer class="bg-[var(--nav-bg)] lg:grid lg:grid-cols-5 mt-20 w-full border-t border-[var(--border-color)]">
+    <div class="relative block h-32 lg:col-span-2 lg:h-full">
+    <img src="http://localhost:8000/img/9b0fd4e7-c2f7-485b-a09b-e9078080a064/z2sbzpbqstj980jj-nlmaf-logo-2shues-smallcropped.jpeg?fm=jpg&q=80&fit=max&crop=2048%2C2048%2C0%2C0" alt="No Limits Martial Arts and Fitness" class="absolute rounded-full inset-0 h-[15rem] w-[15rem] object-cover mt-4">
+    </div>
+    <div class="relative px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+    <div>
+    <p>
+    <span class="text-xs tracking-wide text-[var(--color-text-primary)] uppercae">Contact Us</span>
+   
+    <span class="block text-2xl font-medium text-[var(--color-text-primary)]">804-867-5309</span>
+    <PrimaryButton>Leave a Message</PrimaryButton>
+    </p>
+
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div>
+    <p class="font-medium text-[var(--color-text-primary)]">Menu</p>
+    <ul class="mt-6 space-y-4 text-sm">
+    <li v-for="link in $page.props.menuLinks" :key="link.id">
+    <Link :href="link.url" class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]">{{ link.title }}</Link>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+    </footer>
 </template>
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
-
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import IconButton from "@/Components/Theme/UI/IconButton.vue";
 const form = useForm();
 const handleLogout = ()=>{
     form.post(route('logout'));
