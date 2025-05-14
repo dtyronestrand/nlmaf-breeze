@@ -52,7 +52,7 @@
     <span class="text-xs tracking-wide text-[var(--color-text-primary)] uppercae">Contact Us</span>
    
     <span class="block text-2xl font-medium text-[var(--color-text-primary)]">804-867-5309</span>
-    <PrimaryButton>Leave a Message</PrimaryButton>
+    <PrimaryButton @click="contact">Leave a Message</PrimaryButton>
     </p>
 
     </div>
@@ -77,11 +77,17 @@ import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import IconButton from "@/Components/Theme/UI/IconButton.vue";
+import {router} from "@inertiajs/vue3";
 const form = useForm();
 const handleLogout = ()=>{
-    form.post(route('logout'));
+    router.post(route('logout'));
 }
-
+const handleLogin  = ()=>{
+    router.visit(route('register'))
+}
+const contact = ()=>{
+    router.get('contact');
+}
 </script>
 <style scoped>
 
