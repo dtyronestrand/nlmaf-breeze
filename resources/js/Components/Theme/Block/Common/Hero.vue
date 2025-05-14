@@ -2,6 +2,7 @@
 import Heading from './Heading.vue'
 import IconButton from '../../UI/IconButton.vue';
 import {Link} from '@inertiajs/vue3';
+import InteractiveGrid from '../../UI/InteractiveGrid.vue'
 defineOptions({
     name: 'BlockCommonHero',
 })
@@ -25,7 +26,9 @@ defineProps<Props>();
 
 </script>
 <template>
+
     <div v-if="block.childs" class="flex flex-col items-center justify-center text-center">
+
         <div v-for="(child,index) in block.childs" :key="index">
             <Heading class="text-white text-7xl" v-if="child.type == 'common-heading'" :block="child"></Heading>
         </div>
@@ -44,6 +47,7 @@ defineProps<Props>();
             {{ block.content.button_text }}
         </IconButton>
         </div>
+     
     </template>
     <style scoped>
     .glass-container-logo::before {

@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import WordList from '../Components/Theme/UI/WordList.vue';
 import IconButton from '../Components/Theme/UI/IconButton.vue';
 
 const form = useForm({
@@ -23,10 +24,24 @@ const submit = () => {
         },
     });
 };
+const words = [
+  "joy",
+  "happiness",
+  "success",
+  "challenge",
+  "move",
+  "change",
+  "grow",
+  "experience",
+  "self",
+  "journey",
+  "sustainable"]
 </script>
 
 <template>
-  <div class="bg-[var(--color-base-500)] flex items-center justify-center mt-20 mx-auto w-full max-w-6xl">
+   <Head title="Contact Us" />
+    <WordList :words="words" />
+  <div class="bg-transparent flex items-center justify-center min-h-[100vh] mx-auto w-full max-w-6xl">
    <form @submit.prevent="submit" class="mt-10 bg-[var(--color-base-900)] px-20  text-lg flex align-center justify-center border-2 border-[var(--color-accent-500)] rounded-lg shadow-lg">
    <div class="flex flex-row justify-content-center">
    <div class="flex flex-col">

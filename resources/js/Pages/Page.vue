@@ -9,6 +9,7 @@ interface Props {
 defineProps<Props>()
 const BlockCommonHeading = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Heading.vue'))
 const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Cardblock.vue'))
+const BlockCommonLanding = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Landing.vue'))
 </script>
 <template>
     <Head :item="item"></Head>
@@ -30,6 +31,12 @@ const BlockCommonCardblock = defineAsyncComponent(() => import('@/Components/The
         v-if="block.type == 'common-cardblock'"
         :block="block"
       ></BlockCommonCardblock>
+        <BlockCommonLanding
+            v-if="block.type == 'common-landing'"
+            :block="block"
+        ></BlockCommonLanding>
+
+
   
     </div>
   </div>

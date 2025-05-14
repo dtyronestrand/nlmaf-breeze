@@ -49,16 +49,16 @@
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
     <div>
     <p>
-    <span class="text-xs tracking-wide text-[var(--color-text-primary)] uppercae">Contact Us</span>
+    <span class="text-2xl tracking-wide text-[var(--color-text-primary)] uppercae">Contact Us</span>
    
-    <span class="block text-2xl font-medium text-[var(--color-text-primary)]">804-867-5309</span>
+    <span class="block text-xl font-medium text-[var(--color-text-primary)]">804-867-5309</span>
     <PrimaryButton @click="contact">Leave a Message</PrimaryButton>
     </p>
 
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div>
-    <p class="font-medium text-[var(--color-text-primary)]">Menu</p>
+    <p class="font-medium text-[var(--color-text-primary)]">Navigation</p>
     <ul class="mt-6 space-y-4 text-sm">
     <li v-for="link in $page.props.menuLinks" :key="link.id">
     <Link :href="link.url" class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]">{{ link.title }}</Link>
@@ -86,7 +86,7 @@ const handleLogin  = ()=>{
     router.visit(route('register'))
 }
 const contact = ()=>{
-    router.get('contact');
+   router.get('contact')
 }
 </script>
 <style scoped>
@@ -286,7 +286,7 @@ justify-content: space-between;
 }
 
 .dropdown a:hover {
-    background: rgba(33, 150, 243, 0.15);
+    background: rgba(244, 208, 63, 0.15);
     color: var(--primary-color);
     transform: translateX(5px);
 }
