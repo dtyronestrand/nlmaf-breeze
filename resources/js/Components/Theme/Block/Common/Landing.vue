@@ -17,7 +17,7 @@ type PropsBlock = {
         heading?: string | null
         details?: string | null
     }
-    childs: PropsChildBlock[]
+    childs?: PropsChildBlock | null
 }
 type PropsChildBlock = {
     content: {

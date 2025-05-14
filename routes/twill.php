@@ -16,3 +16,5 @@ Route::group(['prefix'=>'content'], function(){
 TwillRoutes::singleton('pageHome');
 TwillRoutes::module('menuLinks');
 TwillRoutes::module('profiles');
+
+TwillRoutes::module('programs');
