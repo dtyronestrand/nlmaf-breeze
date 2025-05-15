@@ -30,5 +30,12 @@ class ProgramController extends Controller
                 $program->computeBlocks();
                 return $program;
             });
+            if (!$item) {
+                abort(404, 'Program not found');
+            }
+
+            return Inertia::render('Programs', [
+                'item' => $item->only($item->publicAttributes),
+            ]);
         }
     }

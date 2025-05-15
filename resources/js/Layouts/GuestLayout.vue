@@ -1,20 +1,5 @@
 <template>
-    <header class="navbar">
-        <div class="logo">
-            <Link clas="text-[var(--color-text-primary)]" href="/">NLMAF</Link>
-        </div>
-        <nav class="nav-menu">
-            <ul clas="nav-link">
-                <li></li>
-            </ul>
-       
-        </nav>
-        <div class="hamburger">
-            <span class="barr"></span>
-            <span class="barr"></span>
-            <span class="barr"></span>
-        </div>
-    </header>
+
     <main>
         <slot></slot>
     </main>

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Twill;
 
 use A17\Twill\Models\Contracts\TwillModelContract;
-use A17\Twill\Services\Listings\Columns\Text;
-use A17\Twill\Services\Listings\TableColumns;
+
+
 use A17\Twill\Services\Forms\Fields\BlockEditor;
+use A17\Twill\Services\Forms\Fields\Input;
+use A17\Twill\Services\Forms\Fieldset;
 use A17\Twill\Services\Forms\Form;
 use A17\Twill\Http\Controllers\Admin\NestedModuleController as BaseModuleController;
-use A17\Twill\Models\Base;
+use App\Models\Program as ProgramModel;
 
 
 class ProgramController extends BaseModuleController
@@ -25,14 +27,7 @@ class ProgramController extends BaseModuleController
         $this->setPermalinkBase('programs');
         $this->withoutLanguageInPermalink();
     }
-    protected function form(?int $id, ?TwillModelContract $item = null): array
-    {
-        $data = parent::form($id, $item);
 
-        $data['baseUrl'] = $data['baseUrl'] . $data['item']->ancestorsSlug . '/';
-
-        return $data;
-    }
     /**
      * See the table builder docs for more information. If you remove this method you can use the blade files.
      * When using twill:module:make you can specify --bladeForm to use a blade form instead.
@@ -48,29 +43,33 @@ class ProgramController extends BaseModuleController
 
         return $form;
     }
-      /**
-     * @param Model $item
-     * @return array
-     */
-    protected function previewData($item)
+    public function getSideFieldsets(TwillModelContract $model): Form
     {
-        $item->computedBlocks();
-        return $this->previewForInertia($item->only($item->publicAttributes), [
-            'page'=>'Page',
-        ]);
+        $form = parent::getSideFieldsets($model);
+
+        $form->addFieldset(
+            Fieldset::make()
+                ->title('SEO')
+                ->id('seo')
+                ->fields([
+                    Input::make()
+                        ->name('meta_title')
+                        ->label('Meta title')
+                        // Program model's meta_title is not translatable
+                        ->maxlength(200),
+                    Input::make()
+                        ->name('meta_description')
+                        ->label('Meta description')
+                        // Program model's meta_description is not translatable
+                        ->maxlength(200)
+                ])
+        );
+        return $form;
     }
+ 
 
     /**
      * This is an example and can be removed if no modifications are needed to the table.
      */
-    protected function additionalIndexTableColumns(): TableColumns
-    {
-        $table = parent::additionalIndexTableColumns();
 
-        $table->add(
-            Text::make()->field('description')->title('Description')
-        );
-
-        return $table;
-    }
 }

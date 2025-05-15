@@ -6,6 +6,14 @@ declare namespace Model {
       blocks?: Array<Block> | null
       medias: {} | null
     }
+    export type Program = {
+      title: string
+      meta_title?: string
+      meta_description?: string
+      blocks?: Array<Block> | null
+      medias: {} | null
+    }
+    
     export type Block ={
         editor_name: string
         position: number

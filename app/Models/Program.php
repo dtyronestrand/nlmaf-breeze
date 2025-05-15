@@ -28,10 +28,12 @@ class Program extends Model implements Sortable
         'title',
     ];
     
-    public array $publicAttributes = [
+    public  $publicAttributes = [
+        'id',
         'title',
         'slug',
         'blocks',
+        'medias',
         'meta_title',
         'meta_description',
         'position'
