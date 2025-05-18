@@ -3,8 +3,14 @@ declare namespace Model {
       title: string
       meta_title?: string
       meta_description?: string
-      blocks?: Array<Block> | null
+    medias: {} | null
       medias: {} | null
+    }
+    export type News = {
+      title: string
+      description?: string
+      date?: date | null
+      blocks?: Array<Block> | null
     }
     export type Program = {
       title: string

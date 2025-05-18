@@ -13,6 +13,8 @@ class ProfileRequest extends Request
 
     public function rulesForUpdate()
     {
-        return [];
+        return [
+            'name'=>'required'
+        ];
     }
 }

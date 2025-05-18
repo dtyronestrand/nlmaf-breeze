@@ -28,8 +28,10 @@ const submitRegister = () => {
 const submitLogin = () => {
     form.post(route('login'));
 };
-const displayForm:string = ref('login');
-
+const displayForm = ref('register');
+const forgotPassword = ()=> {
+  form.post(route('/forgot-password'))
+}
 const words = [
   "joy",
   "happiness",
@@ -102,7 +104,22 @@ const words = [
               class="input" /><InputError :message="form.errors.password_confirmation" class="mt-2" />
               </div>
               <div class="form-bottom">
-            <IconButton >Sign Up</IconButton>
+            <button type="submit"class="group flex items-center justify-between gap-4 rounded-lg border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 py-3 transition-colors hover:bg-transparent focus:ring-3 focus:outline-hidden" >  <span class="font-bold text-[var(--color-inverse-text))] text-xl transition-colors group-hover:text-[var(--color-accent)]">Sign Up</span>   <span class="shrink-0 rounded-full border border-current bg-[var(--color-accent-300)] p-2 text-[var(--color-text-inverse)] group-hover:bg-transparent group-hover:border-[var(--color-accent)]  group-hover:text-[var(--color-accent)] transition-colors">
+        <svg
+          class="size-5 shadow-sm rtl:rotate-180"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"
+          />
+        </svg>
+      </span></button>
             <br/>
             <button  type="button" @click="displayForm='login'" class="mt-4 text-neutral-100 already-registered">Already have an account? Login</button>
             </div>

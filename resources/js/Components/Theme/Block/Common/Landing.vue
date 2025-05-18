@@ -52,7 +52,7 @@ defineProps<Props>();
    <p class="text-center mt-2">{{ child.content.details }}</p>
    
     </GlareCard>
-    <IconButton class="mt-4 text-[var(--color-neutral-900)]" @click="router.get(child.content.link)" >Learn More</IconButton>
+    <IconButton :href="child.content.link" class="mt-4 text-[var(--color-neutral-900)]" ></IconButton>
     </div>
         
     </BlurReveal>

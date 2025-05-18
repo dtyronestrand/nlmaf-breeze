@@ -7,7 +7,7 @@ use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
 use A17\Twill\Services\Forms\Fields\Input;
 use A17\Twill\Services\Forms\Form;
-use A17\Twill\Http\Controllers\Admin\ModuleController as BaseModuleController;
+use App\Http\Controllers\Twill\Base\ModuleController as BaseModuleController;
 
 class ProfileController extends BaseModuleController
 {
@@ -15,6 +15,12 @@ class ProfileController extends BaseModuleController
     /**
      * This method can be used to enable/disable defaults. See setUpController in the docs for available options.
      */
+    protected $titleColumnKey = 'name';
+
+    protected $indexOptions = [
+        'create' => false,
+        'delete' => false,
+    ];
     protected function setUpController(): void
     {
     }
@@ -26,10 +32,18 @@ class ProfileController extends BaseModuleController
     public function getForm(TwillModelContract $model): Form
     {
         $form = parent::getForm($model);
-
         $form->add(
-            Input::make()->name('description')->label('Description')->translatable()
+            Input::make()->name('first_name')->label('First Name')->required(),
+            Input::make()->name('last_name')->label('Last Name')->required(),
+            Input::make()->name('email')->label('Email')->required(),
+            Input::make()->name('phone')->label('Phone'),
+            Input::make()->name('address')->label('Address'),
+            Input::make()->name('city')->label('City'),
+            Input::make()->name('state')->label('State'),
+            Input::make()->name('zip')->label('Zip Code')
         );
+        
+ 
 
         return $form;
     }

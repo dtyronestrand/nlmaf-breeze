@@ -17,18 +17,27 @@ class Profile extends Model implements Sortable
 
     protected $fillable = [
         'published',
-        'title',
-        'description',
+        'first_name',
+        'last_name',
+        'name',
+        'bio',
+        'email',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'zip',
         'position',
     ];
     
     public $translatedAttributes = [
-        'title',
-        'description',
+    
     ];
     
     public $slugAttributes = [
-        'title',
+        'name',
     ];
+
+    
     
 }
