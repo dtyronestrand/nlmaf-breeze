@@ -38,7 +38,10 @@ class AppServiceProvider extends ServiceProvider
                 ->forModule('pages'),
                 NavigationLink::make()
                 ->title(Str::ucfirst(__('programs')))
-                ->forModule('programs')
+                ->forModule('programs'),
+                NavigationLink::make()
+                ->title(Str::ucfirst(__('news')))
+                ->forModule('news'),
             ]),
      
         );
@@ -50,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
             'pageHome'=>'App\Models\PageHome',
             'menuLink'=>'App\Models\MenuLink',
             'program'=>'App\Models\Program',
+            'news'=>'App\Models\News',
         ]);
     }
 }

@@ -17,3 +17,4 @@ TwillRoutes::singleton('pageHome');
 TwillRoutes::module('menuLinks');
 TwillRoutes::module('profiles');
 TwillRoutes::module('programs');
+TwillRoutes::module('news');
