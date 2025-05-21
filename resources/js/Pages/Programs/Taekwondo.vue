@@ -18,5 +18,8 @@ interface Props {
 }
 defineProps<Props>()
 const BlockCommonHeading = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Heading.vue'))
-const BlockCommonText = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/Text.vue'))
+const BlockCommonText = defineAsyncComponent(() => import('../../Components/Theme/Block/Common/Text.vue'))
+// If the file is actually named Text.vue and located at the specified path, ensure it exists.
+// If the file is named differently (e.g., CommonText.vue), update the import path accordingly:
+// const BlockCommonText = defineAsyncComponent(() => import('@/Components/Theme/Block/Common/CommonText.vue'))
 </script>
