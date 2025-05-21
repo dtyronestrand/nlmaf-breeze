@@ -1,37 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
 use App\Models\News;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
     public function index(): InertiaResponse
     {
-$newsItems = News::publishedInListings()
-            ->orderBy('date', 'desc')
-            ->with('medias')
+   
+        $newsPaginator = News::publishedInListings()
+            ->with('blocks')
+            ->orderBy('publish_start_date', 'desc')
             ->paginate(10);
+        $newsPaginator->getCollection()->transform(function (News $newsItem){
+            $newsItem->computeBlocks();
+            return $newsItem;
+        });
+      
         return Inertia::render('News/Index', [
-        
-            'items' => $newsItems->map(function (News $item) {
-                return $item->only($item->publicAttributes);
-            }),
-            'paginator' => [
-                'currentPage' => $newsItems->currentPage(),
-                'lastPage' => $newsItems->lastPage(),
-                'total' => $newsItems->total(),
-            ],
+            'news' => $newsPaginator,
         ]);
     }
-    public function show(string $slug): InertiaResponse
+    public function show(Request $request, int $id): InertiaResponse
     {
-        $item = News::publishedInListings()->forSlug($slug)->firstOrFail();
+        $newsItem = News::publishedInListings()
+            ->with('blocks')
+            ->findOrFail($id);
+        $newsItem->computeBlocks();
         return Inertia::render('News/Show', [
-            'item' => $item->only($item->publicAttributes),
+            'news' => $newsItem->only($newsItem->publicAttributes),
         ]);
     }
 }
+

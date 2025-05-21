@@ -7,10 +7,9 @@ declare namespace Model {
   
     }
     export type News = {
+      id: number
       title: string
-      description?: string
-      date_formatted?: date | null
-      medias: {}| null
+      blocks?: Array<Block> | null
     }
     export type Program = {
       title: string

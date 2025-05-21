@@ -30,9 +30,14 @@ const headingTag = computed(()=>{
     return h2;
 });
 function goldText(sentence: string) {
+
   const words = sentence.split(' ')
+  if (words.length <= 2) {
+    return sentence
+  } else{
   const lastTwo = words.slice(-2).join(' ')
   const remaining = words.slice(0, -2).join(' ')
   return `${remaining} <span class="bg-gradient-to-b from-yellow-200 to-yellow-500 bg-clip-text not-italic text-transparent">${lastTwo}</span>`
+  }
 }
 </script>

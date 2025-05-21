@@ -18,3 +18,4 @@ TwillRoutes::module('menuLinks');
 TwillRoutes::module('profiles');
 TwillRoutes::module('programs');
 TwillRoutes::module('news');
+TwillRoutes::module('news');

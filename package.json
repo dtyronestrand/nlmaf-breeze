@@ -29,6 +29,7 @@
     "dependencies": {
         "@fontsource/protest-revolution": "^5.2.5",
         "@vueuse/core": "^13.1.0",
+        "dayjs": "^1.11.13",
         "gsap": "^3.13.0",
         "motion-v": "^1.0.0-beta.3",
         "simplex-noise": "^4.0.3"

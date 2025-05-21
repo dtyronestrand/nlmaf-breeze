@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Twill;
 use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
+use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Fields\Input;
-use A17\Twill\Services\Forms\Fields\Medias;
-use A17\Twill\Services\Forms\Fields\DatePicker;
 use A17\Twill\Services\Forms\Form;
 use A17\Twill\Http\Controllers\Admin\ModuleController as BaseModuleController;
-
+use App\Models\Base\Model;
 class NewsController extends BaseModuleController
 {
     protected $moduleName = 'news';
@@ -30,15 +29,11 @@ class NewsController extends BaseModuleController
         $form = parent::getForm($model);
 
         $form->add(
-            Input::make()->name('description')->label('Description')
+            BlockEditor::make()->name('blocks')->blocks([
+                'common-news'
+            ])
         );
-        $form->add(
-            Medias::make()->name('image')->label('Image')
-        );
-    $form->add(
-        DatePicker::make()->name('date')->label('Date')
-            
-    );
+
         return $form;
     }
 
