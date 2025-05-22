@@ -7,6 +7,13 @@
             class="text-[var(--color-text-primary)] mb-12 mt-12 text-5xl md:text-7xl text-center text-balance"
         />
     </h1>
+    <div class="section-dots">
+  <span
+    v-for="(headline, idx) in headlines"
+    :key="idx"
+    :class="['dot', { active: currentSection === idx }]"
+  ></span>
+</div>
     <section
         v-for="(headline, index) in headlines"
         :key="index"
@@ -18,6 +25,13 @@
                 class="hero__image"
             ></figure>
             <div class="headline-stack">
+            <div
+  class="scroll-indicator"
+  :class="{ 'is-hidden': descriptionActive[index] }"
+>
+  <span class="scroll-indicator__icon">▼</span>
+  <span class="scroll-indicator__text">Scroll for more</span>
+</div>
                 <h2
                     class="hero__title"
                     :class="{ 'is-hidden': descriptionActive[index] }"
@@ -125,27 +139,33 @@ const BlockCommonText = defineAsyncComponent(
 const horizontalRefs = ref<HTMLElement[]>([]);
 const titleRefs = ref<HTMLElement[]>([]);
 const descriptionActive = ref<boolean[]>([]);
+const currentSection = ref(0);
 
 function handleScroll() {
-    horizontalRefs.value.forEach((el, index) => {
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+  let found = false;
+  horizontalRefs.value.forEach((el, index) => {
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
 
-        // When the description container reaches the middle of the viewport
-        if (rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.2) {
-            descriptionActive.value[index] = true;
-            // Horizontal scroll logic
-            const maxScroll = el.scrollWidth - el.clientWidth;
-            const progress = Math.min(
-                Math.max((windowHeight * 0.5 - rect.top) / rect.height, 0),
-                1
-            );
-            el.scrollLeft = maxScroll * progress;
-        } else {
-            descriptionActive.value[index] = false;
-        }
-    });
+    // Section is in view
+    if (!found && rect.top < windowHeight * 0.6 && rect.bottom > windowHeight * 0.4) {
+      currentSection.value = index;
+      found = true;
+    }
+
+    if (rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.2) {
+      descriptionActive.value[index] = true;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const progress = Math.min(
+        Math.max((windowHeight * 0.5 - rect.top) / rect.height, 0),
+        1
+      );
+      el.scrollLeft = maxScroll * progress;
+    } else {
+      descriptionActive.value[index] = false;
+    }
+  });
 }
 
 onMounted(() => {
@@ -156,12 +176,39 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener("scroll", handleScroll);
 });
+
 </script>
 
 <style scoped>
+.section-dots {
+  position: fixed;
+  top: 50%;
+  right: 2vw;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-base-100, #444);
+  opacity: 0.4;
+  transition: background 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  background: var(--color-accent-500, #ffb300);
+  opacity: 1;
+  transform: scale(1.2);
+}
 p {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    font-size: 1.75rem;
+    line-height: 3rem;
     color: var(--color-text-primary);
 }
 figure {
@@ -204,10 +251,11 @@ figure {
     font-size: 8vw;
     letter-spacing: -0.125rem;
     text-align: center;
-    color: var(--color-text-primary);
+    color: var(--color-primary-500);
     text-shadow: 0 0 10px var(--color-accent-500);
     z-index: 2;
     pointer-events: none;
+    margin-bottom: 4rem;
     opacity: 1;
     transform: none;
 }
@@ -233,20 +281,22 @@ figure {
 }
 .ct {
     display: inline-block;
-    min-width: 120vw;
+    min-width: 60vw;;
     padding-left: 10vw;
+
+    
 }
 .hero__description {
-    font-size: 2rem;
-    color: var(--color-text-primary);
+    font-size: 2.5rem;
+    color: var(--color-secondary-200);
     display: inline-block;
-    white-space: normal;
-    max-width: 60vw;
+    white-space: pre-wrap;
+    margin: 0 auto;
     background: none;
 }
 .spane {
     width: 100vw;
-    height: 40vh;
+    height:60vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;

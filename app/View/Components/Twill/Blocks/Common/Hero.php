@@ -4,6 +4,9 @@ namespace App\View\Components\Twill\Blocks\Common;
 
 use A17\Twill\Services\Forms\Fields\BlockEditor;
 use A17\Twill\Services\Forms\Form;
+use A17\Twill\Services\Forms\Fields\Select;
+use A17\Twill\Services\Forms\Options;
+use A17\Twill\Services\Forms\Option;
 use A17\Twill\Services\Forms\Fields\Medias;
 use A17\Twill\Services\Forms\Fields\Input;
 
@@ -15,6 +18,15 @@ class Hero extends Base
     public function getForm(): Form
     {
         return Form::make([
+            Select::make()
+            ->name('variant')
+            ->label(__('Variant'))
+            ->options(
+                Options::make([
+                    Option::make('default', 'Default'),
+                Option::make('cta', 'Call to Action'),
+                ])
+                ),
             BlockEditor::make()->name('heading')
             ->blocks(['common-heading']),
             Medias::make()
