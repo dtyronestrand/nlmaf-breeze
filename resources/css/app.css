@@ -119,6 +119,16 @@
   body{
     background-color: var(--color-base-500);
     line-height: 1;
+    display: grid;
+    min-height:100vh;
+    margin:0;
+    grid-template-rows: auto 1fr auto;
+  }
+  header{
+    min-height: 50px;
+  }
+  footer{
+    min-height: 50px;
   }
   h1, h2{
     font-family: 'Protest Revolution', serif;
