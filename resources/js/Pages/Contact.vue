@@ -8,7 +8,9 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import WordList from '../Components/Theme/UI/WordList.vue';
 import IconButton from '../Components/Theme/UI/IconButton.vue';
-
+defineOptions({
+      layoutName: 'GuestLayout',
+})
 const form = useForm({
    first_name: '',
     last_name: '',

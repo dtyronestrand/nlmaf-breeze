@@ -1,56 +1,90 @@
 <template>
-   <header class="header">
-   <nav class="navbar">
-   <div class="nav-brand">
-   <Link href="/" class="logo">NLMAF</Link>
-   </div>
-   <div class="nav-toggle">
-   <div class="hamburger">
-   <span></span>
-<span></span>
-<span></span>
-   </div>
-   </div>
-<div class="nav-menu">
-<ul class="nav-list" v-for="link in $page.props.menuLinks">
-<li  v-if="!link.submenu" >
-   <Link :href="link.url" class="nav-link" >{{ link.title }}</Link>
-</li>
-<li v-else class="nav-item has-dropdown">
-<Link :href="link.url" class="nav-link">
-{{ link.title }}              <svg class="icon chevron-icon" viewBox="0 0 24 24" width="14" height="14">
-                                <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
-                            </svg>
-</Link>
-<ul class="dropdown">
-<li v-for="sub in link.submenu" :key="sub.id">
-<Link :href="sub.url">{{ sub.title }}</Link>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div v-if="$page.props.user" class="nav-actions">
-<SecondaryButton @click="handleLogout">Logout</SecondaryButton>
-</div>
-<div v-else class="nav-actions">
-<SecondaryButton @click="handleLogin">Login</SecondaryButton>
-</div>
-   </nav>
+   <header class=" bg-[var(--color-primary-800)] border-b border-[var(--color-accent-500)]">
+    <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <!-- Logo -->
+        <Link href="/" class="flex items-center">
+            <span class="self-center text-xl font-semibold whitespace-nowrap text-[var(--color-text-primary)]">NLMAF</span>
+        </Link>
+
+        <!-- Right-aligned items group (Download, Login/Logout, Mobile Hamburger) -->
+        <div class="flex items-center md:order-2">
+            <div class="hidden m-2 mr-4 sm:inline-block"> <!-- This span's purpose is unclear, might be for spacing or a placeholder -->
+                <span></span>
+            </div>
+            <a href="https://themesberg.com/product/tailwind-css/landing-page"
+                class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-4 md:px-5 py-2 md:py-2.5 sm:mr-2 md:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Download</a>
+            
+            <div v-if="$page.props.user" class="ml-2 sm:mr-2"> <!-- Adjusted margins for consistency -->
+                <SecondaryButton @click="handleLogout">Logout</SecondaryButton>
+            </div>
+            <div v-else class="ml-2 sm:mr-2"> <!-- Adjusted margins for consistency -->
+                <SecondaryButton @click="handleLogin">Login</SecondaryButton>
+            </div>
+
+            <!-- Mobile Menu Hamburger Button -->
+          <button type="button"
+    @click="toggleMobileMenu"
+    class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-md md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+    :aria-expanded="isMobileMenuOpen.toString()"
+    aria-controls="main-menu-content">
+                <span class="sr-only">Open main menu</span>
+                <svg v-if="!isMobileMenuOpen" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <svg  v-if="isMobileMenuOpen" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <!-- The md:hidden hamburger button was here, it's removed as it seems redundant -->
+        </div>
+
+        <!-- Collapsible Menu Links -->
+<div id="main-menu-content"
+     :class="{ 'block': isMobileMenuOpen, 'hidden': !isMobileMenuOpen }"
+     class="items-center justify-between w-full md:flex md:w-auto md:order-1">
+            <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
+                <li v-for="link in $page.props.menuLinks" :class="link.submenu ? 'has-dropdown' : ''" :key="link.id">
+                    <Link v-if="!link.submenu" :href="link.url"
+                        class="block py-2 pl-3 pr-4 rounded md:bg-transparent bg-[var(--color-primary-600)] md:p-0 text-[var(--color-text-primary)] transition hover:text-[var(--color-secondary-500)]"
+                        aria-current="page">{{ link.title }}</Link>
+                    <span v-else>
+                        <Link :href="link.url"
+                            class="block py-2 pl-3 pr-4 rounded md:bg-transparent bg-[var(--color-primary-600)] md:p-0 text-[var(--color-text-primary)] transition hover:text-[var(--color-secondary-500)]">
+                        {{ link.title }} <svg class="icon chevron-icon" viewBox="0 0 24 24" width="14" height="14">
+                            <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
+                        </svg>
+                        </Link>
+                        <ul class="dropdown">
+                            <li v-for="sub in link.submenu" :key="sub.id">
+                                <Link :href="sub.url">{{ sub.title }}</Link>
+                            </li>
+                        </ul>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </nav>
    </header>
-    <main class="relative">
+    <main class="-mt-20 relative pb-8">
         <slot></slot>
     </main>
-    <footer class="bg-[var(--nav-bg)] lg:grid lg:grid-cols-5 mt-20 w-full border-t border-[var(--border-color)]">
-    <div class="relative block h-32 lg:col-span-2 lg:h-full">
-    <img src="http://localhost:8000/img/9b0fd4e7-c2f7-485b-a09b-e9078080a064/z2sbzpbqstj980jj-nlmaf-logo-2shues-smallcropped.jpeg?fm=jpg&q=80&fit=max&crop=2048%2C2048%2C0%2C0" alt="No Limits Martial Arts and Fitness" class="absolute rounded-full inset-0 h-[15rem] w-[15rem] object-cover mt-4">
+    <footer class="hidden  bg-[var(--nav-bg)] md:grid md:grid-cols-5 mt-20 w-full border-t border-[var(--border-color)]">
+    <!-- Image Section -->
+    <div class="flex justify-center items-center py-8 md:col-span-2 md:py-16 md:pl-4 md:justify-start">
+        <img src="http://localhost:8000/img/9b0fd4e7-c2f7-485b-a09b-e9078080a064/z2sbzpbqstj980jj-nlmaf-logo-2shues-smallcropped.jpeg?fm=jpg&q=80&fit=max&crop=2048%2C2048%2C0%2C0" 
+             alt="No Limits Martial Arts and Fitness" 
+             class="rounded-full h-[10rem] w-[10rem] object-cover">
     </div>
-    <div class="relative px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">
+    <!-- Content Section -->
+    <div class=" pt-0 pb-8 sm:px-6 md:col-span-3 md:px-2 md:py-16">
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
     <div>
     <p>
     <span class="text-2xl tracking-wide text-[var(--color-text-primary)] uppercae">Contact Us</span>
-   
     <span class="block text-xl font-medium text-[var(--color-text-primary)]">804-867-5309</span>
     <PrimaryButton @click="contact">Leave a Message</PrimaryButton>
     </p>
@@ -85,9 +119,17 @@ const handleLogout = ()=>{
 const handleLogin  = ()=>{
     router.visit(route('register'))
 }
-const contact = ()=>{
-   router.get('contact')
-}
+
+
+
+// Reactive state for mobile menu visibility
+const isMobileMenuOpen = ref(false); // Initially closed
+
+// Method to toggle the menu state
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
 </script>
 <style scoped>
 
@@ -98,116 +140,7 @@ const contact = ()=>{
 
 
 /* Header and Navbar */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
 
-.navbar {
-    display: flex;
-justify-content: space-between;
-    align-items: center;
-    padding: 1rem 4rem;
-    background: var(--nav-bg);
-    backdrop-filter: var(--glass-effect);
-    -webkit-backdrop-filter: var(--glass-effect);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 4px 30px var(--shadow-color);
-    transition: var(--transition-medium);
-}
-
-/* Logo */
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: var(--neon-glow);
-    position: relative;
-    display: inline-block;
-    transition: var(--transition-medium);
-   
-}
-
-.logo:hover {
-    transform: translateY(-2px);
-    text-shadow: 0 0 15px var(--primary-glow),
-                 0 0 30px var(--primary-glow);
-}
-
-.logo::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: var(--primary-color);
-    bottom: -4px;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform var(--transition-medium);
-    box-shadow: var(--neon-glow);
-}
-
-.logo:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Navigation Menu */
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-list {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-}
-
-.nav-item {
-    position: relative;
-}
-
-.nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    transition: all var(--transition-medium);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--primary-color);
-    text-shadow: var(--neon-glow);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-}
-
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    box-shadow: var(--neon-glow);
-}
 /* Icons */
 .icon {
     transition: var(--transition-medium);
@@ -222,9 +155,7 @@ justify-content: space-between;
     transform: rotate(180deg);
 }
 
-.hidden {
-    display: none;
-}
+
 
 /* Dropdown Menus */
 .has-dropdown {
@@ -290,7 +221,5 @@ justify-content: space-between;
     color: var(--primary-color);
     transform: translateX(5px);
 }
-main{
-    padding-top: 4rem;
-}
+
 </style>
