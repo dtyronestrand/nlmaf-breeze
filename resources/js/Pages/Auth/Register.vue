@@ -17,17 +17,13 @@ const form = useForm({
     password_confirmation: '',
 });
 
-const submitRegister = () => {
+const submit = () => {
     form.post(route('register'), {
         onFinish: () => {
             form.reset('password', 'password_confirmation');
         },
     });
 };
-const submitLogin = () => {
-    form.post(route('login'));
-};
-const displayForm:string = ref('login');
 
 const words = [
   "joy",
@@ -44,105 +40,97 @@ const words = [
 </script>
 
 <template>
+    <GuestLayout>
         <Head title="Register" />
-        <WordList :words="words" />
-<div class="formwarp">
-<div class="login-register">
-<div class="register form">
-          <form
-          id="register"
-           :class="displayForm === 'register' ? '' : 'hidden'"
-            @submit.prevent="submitRegister">
-            <div class="form-header"></div>
-            <div class="form-group">
-            <InputLabel for="first_name" value="First Name" />
-            <TextInput
-          v-model="form.first_name"
-              id="first_name"
-              type="text"
-              class="input" />
-           <InputError :message="form.errors.first_name" class="mt-2" />
-           </div>
-           <div class="form-group">
-            <InputLabel for="last_name" value="Last Name" />
-          
-            <TextInput
-          v-model="form.last_name"
-                id="last_name"
+<div class="bg-cover bg-center bg-fixed" style="background-position: right top; background-image: url('/assets/images/formbg.webp')">
+    <div class="h-screen flex justify-center items-center">
+        <div class="bg-[rgba(6,6,6,0.5)] backdrop-blur-xl filter mx-4 mt-8 p-8 rounded-3xl border-2 border-[var(--color-accent-500)] shadow-md w-full md:w-1/2 lg:w-1/3">
+            <h1 class="text-3xl font-bold mb-8 text-center text-[var(--color-text-primary)]">Register</h1>
+            <form @submit.prevent="submit">
+                <div class="mb-4">
+                    <InputLabel for="first_name" value="First Name" class="font-semibold !text-[var(--color-text-primary)]" />
+                    <TextInput
+                        id="first_name"
+                        type="text"
+                        class="mt-1 block w-full border rounded py-2 px-3 text-[var(--color-text-primary)] leading-tight focus:outline-none focus:shadow-outline"
+                        v-model="form.first_name"
+                        required
+                        autofocus
+                        autocomplete="given-name"
+                        placeholder="Enter your first name"
+                    />
+                    <InputError class="mt-2" :message="form.errors.first_name" />
+                </div>
+                <div class="mb-4">
+                    <InputLabel for="last_name" value="Last Name" class="font-semibold !text-[var(--color-text-primary)]" />
+                    <TextInput
+                        id="last_name"
+                        type="text"
+                        class="mt-1 block w-full border rounded py-2 px-3 text-[var(--color-text-primary)] leading-tight focus:outline-none focus:shadow-outline"
+                        v-model="form.last_name"
+                        required
+                        autocomplete="family-name"
+                        placeholder="Enter your last name"
+                    />
+                    <InputError class="mt-2" :message="form.errors.last_name" />
+                </div>
+                <div class="mb-4">
+                    <InputLabel for="email" value="Email Address" class="font-semibold !text-[var(--color-text-primary)]" />
+                    <TextInput
+                        id="email"
+                        type="email"
+                        class="mt-1 block w-full border rounded py-2 px-3 text-[var(--color-text-primary)] leading-tight focus:outline-none focus:shadow-outline"
+                        v-model="form.email"
+                        required
+                        autofocus
+                        autocomplete="username"
+                        placeholder="Enter your email address"
+                    />
+                    <InputError class="mt-2" :message="form.errors.email" />
+                </div>
 
-              type="text"
-              class="input" />
-            <InputError :message="form.errors.last_name" class="mt-2" />
-            </div>
-            <div class="form-group">
-            <InputLabel for="email" value="Email" />
-            <TextInput
-          v-model="form.email"
-              id="email"
-              type="email"
-              class="input" />
-<InputError :message="form.errors.email" class="mt-2" />
-</div>
-<div class="form-group">
-            <InputLabel for="pass" value="Password" />
-            <TextInput
-          v-model="form.password"
-              id="pass"
-              type="password"
-              class="input" />
-<InputError :message="form.errors.password" class="mt-2" />
-</div>
-<div class="form-group">
-            <InputLabel for="confirm-pass" value="Confirm Password" />
-            <TextInput
-          v-model="form.password_confirmation"
-              id="confirm-pass"
-              type="password"
-              class="input" /><InputError :message="form.errors.password_confirmation" class="mt-2" />
-              </div>
-              <div class="form-bottom">
-            <PrimaryButton >Sign Up</PrimaryButton>
-            <br/>
-            <button  type="button" @click="displayForm='login'" class="mt-4 text-neutral-100 already-registered">Already have an account? Login</button>
-            </div>
-          </form>
-          <form :class="displayForm === 'forgot-password' ? '' : 'hidden'"  @submit.prevent="forgotPassword" id="forgot-password" >
-            <div class="form-header"></div>
-            <div class="form-group"><InputLabel for="email" value="Email" />
-            <TextInput
-              v-model="form.email"
-              id="email"
-              type="email"
-              class="input" />
-        </div>
-        <PrimaryButton type="submit" class="submit-btn">Send Password Reset Link</PrimaryButton>
-        </form>
-       
-            <form
-            id="login"
-              class="form-holder"
-              @submit.prevent="submitLogin "  :class="displayForm === 'login' ? '' : 'hidden'">
-              <InputLabel for="email" value="Email" />
-              <TextInput
-                v-model="form.email"
-                id="email"
-                type="email"
-                class="input" /><InputError :message="form.errors.email" class="mt-2" />
-              <InputLabel class="mt-5" for="pass" value="Password" />
-              <TextInput
-                v-model="form.password"
-                id="pass"  
-type="password"
-                class="input" /><InputError :message="form.errors.password" class="mt-2" />
-              <button type="button" @click="displayForm='forgot-password'" class="forgot-pass mt-10 text-[var(--color-primary-100)] mb-5">Forgot Password?</button><br/>
-              <button type="button" @click="displayForm='register'" class="register-btn text-[var(--color-primary-100)] mb-5">Don't have an account? Register</button><br/>
-              <PrimaryButton type="submit" class="submit-btn">LOGIN</PrimaryButton>
+                <div class="mb-4">
+                    <InputLabel for="password" value="Password" class="font-semibold !text-[var(--color-text-primary)]" />
+                    <TextInput
+                        id="password"
+                        type="password"
+                        class="mt-1 block w-full border rounded py-2 px-3 text-[var(--color-text-primary)] leading-tight focus:outline-none focus:shadow-outline"
+                        v-model="form.password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                    />
+                    <InputError class="mt-2" :message="form.errors.password" />
+                </div>
+                <div class="mb-4">
+                    <InputLabel for="password_confirmation" value="Confirm Password" class="font-semibold !text-[var(--color-text-primary)]" />
+                    <TextInput
+                        id="password_confirmation"
+                        type="password"
+                        class="mt-1 block w-full border rounded py-2 px-3 text-[var(--color-text-primary)] leading-tight focus:outline-none focus:shadow-outline"
+                        v-model="form.password_confirmation"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Confirm your password"
+                    />
+                    <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                </div>
+                <div class="block mt-4 mb-4">
+                    <label class="flex items-center">
+                        <Checkbox name="remember" v-model:checked="form.remember" />
+                        <span class="ms-2 text-sm text-[var(--color-text-primary)]">Remember me</span>
+                    </label>
+                </div>
+
+                <PrimaryButton class="ms-4 bg-[var(--color-accent-500)] hover:bg-[var(--color-accent-700)] text-[var(--color-text-primary)]" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Register
+                </PrimaryButton>
             </form>
-        
-          </div>
-          </div>
-  </div>
-  
+        </div>
+    </div>
+</div>
+     
+    </GuestLayout>
 </template>
 <style scoped>
 .formwarp {

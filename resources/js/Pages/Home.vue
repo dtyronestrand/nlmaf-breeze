@@ -4,7 +4,9 @@ import Head from "../Components/Theme/Head.vue";
 import WavyBackground from "../Components/Theme/UI/WavyBackground.vue";
 
 import { defineAsyncComponent } from "vue";
-
+defineOptions({
+  layoutName: "Default",
+})
 
 
 interface Props {
