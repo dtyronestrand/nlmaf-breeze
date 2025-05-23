@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'name',
         'email',
         'password',
         'tkd',
@@ -73,7 +74,7 @@ protected $appends = ['name'];
             $profile->email = $user->email;
             $profile->save();
 
-            $user->name = $profile->name;
+            $user->name = $profile->first_name . ' ' . $profile->last_name;
             $user->save();
         });
     }
