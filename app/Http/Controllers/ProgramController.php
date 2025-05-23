@@ -8,12 +8,22 @@ use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth; // Added import
+use Illuminate\Support\Facades\Redirect; // Added import
 use Illuminate\Support\Str;
 
 class ProgramController extends Controller
 {
     public function show(string $slug): InertiaResponse
     {
+        // Check for Taekwondo slug and user tkd attribute
+        if ($slug === 'taekwondo') {
+            $user = Auth::user();
+            if ($user && $user->tkd === true) {
+                return Redirect::route('programs.taekwondo.members');
+            }
+        }
+
         // Get the current locale
         $locale = App::getLocale();
 
