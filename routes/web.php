@@ -28,6 +28,11 @@ Route::get('/news', [NewsController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'store'])
     ->name('contact.store');
+
+Route::get('/programs/taekwondo/members', function () {
+    return Inertia::render('Programs/Taekwondo/Members');
+})->middleware('auth')->name('programs.taekwondo.members');
+
     Route::get('/programs/{slug}', [ProgramController::class, 'show'])
 ->where('slug','.*')
     ->name('program.show');
