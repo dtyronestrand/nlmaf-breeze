@@ -32,7 +32,7 @@
 </div>
 <div class="mt-[100px] relative" v-else-if="block.content.type === 'profile'">
 <h1 class="text-[var(--color-text-primary)] mx-auto text-center text-shadow-[var(--color-accent-500)] text-5xl md:text-7xl text-balance mb-12 ">{{block.content.heading}}</h1>
-<div class="flex flex-row content-between justify-center gap-6 ">
+<div class="flex flex-col md:flex-row content-between items-center justify-center gap-6 ">
 <div v-for="(child, index) in block.childs" :key="index"class="profile-card border border-[var(--color-accent-500)] rounded-lg shadow-lg p-6 wallet">
 <div class="overlay"></div>
 <div class="circle object-contain">
@@ -277,7 +277,7 @@ position:relative;
   position: absolute;
   height: 118px;
   border-radius: 50%;
-  background: var(--color-primary-500);
+  background: var(--color-accent-500);
   opacity: 0.5;
   top: 70px;
   left: 50px;

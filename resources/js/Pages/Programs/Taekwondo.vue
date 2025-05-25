@@ -25,13 +25,7 @@
                 class="hero__image"
             ></figure>
             <div class="headline-stack">
-            <div
-  class="scroll-indicator"
-  :class="{ 'is-hidden': descriptionActive[index] }"
->
-  <span class="scroll-indicator__icon">▼</span>
-  <span class="scroll-indicator__text">Scroll for more</span>
-</div>
+  
                 <h2
                     class="hero__title"
                     :class="{ 'is-hidden': descriptionActive[index] }"

@@ -1,23 +1,23 @@
 <template>
-   <header class=" bg-[var(--color-primary-800)] border-b border-[var(--color-accent-500)]">
+   <!-- Added z-20 to ensure header is above other content, including the main area and any fixed backgrounds -->
+   <header class=" sticky z-20 top-0 left-0 w-[100vw] bg-[var(--color-primary-800)] border-b border-[var(--color-accent-500)] ">
     <nav class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <!-- Logo -->
         <Link href="/" class="flex items-center">
-            <span class="self-center text-xl font-semibold whitespace-nowrap text-[var(--color-text-primary)]">NLMAF</span>
+            <span class="self-center text-xl font-semibold whitespace-nowrap text-[var(--color-accent-500)]">NLMAF</span>
         </Link>
 
-        <!-- Right-aligned items group (Download, Login/Logout, Mobile Hamburger) -->
+        <!-- Right-aligned items group (Download, Login/Logout, Mobile Hamburger) --
         <div class="flex items-center md:order-2">
             <div class="hidden m-2 mr-4 sm:inline-block"> <!-- This span's purpose is unclear, might be for spacing or a placeholder -->
-                <span></span>
-            </div>
-            <a href="https://themesberg.com/product/tailwind-css/landing-page"
-                class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-4 md:px-5 py-2 md:py-2.5 sm:mr-2 md:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">Download</a>
+       
+ 
+         
             
-            <div v-if="$page.props.user" class="ml-2 sm:mr-2"> <!-- Adjusted margins for consistency -->
+            <div v-if="$page.props.auth.user" class="md:order-2 ml-2 sm:mr-2"> <!-- Adjusted margins for consistency --><span class="mr-2 text-[var(--color-text-primary)]">Welcome, {{ $page.props.auth.user.name }}</span>
                 <SecondaryButton @click="handleLogout">Logout</SecondaryButton>
             </div>
-            <div v-else class="ml-2 sm:mr-2"> <!-- Adjusted margins for consistency -->
+            <div v-else class="md:order-2 ml-2 sm:mr-2"> <!-- Adjusted margins for consistency -->
                 <SecondaryButton @click="handleLogin">Login</SecondaryButton>
             </div>
 
@@ -40,7 +40,7 @@
                 </svg>
             </button>
             <!-- The md:hidden hamburger button was here, it's removed as it seems redundant -->
-        </div>
+      
 
         <!-- Collapsible Menu Links -->
 <div id="main-menu-content"
@@ -53,7 +53,7 @@
                         aria-current="page">{{ link.title }}</Link>
                     <span v-else>
                         <Link :href="link.url"
-                            class="block py-2 pl-3 pr-4 rounded md:bg-transparent bg-[var(--color-primary-600)] md:p-0 text-[var(--color-text-primary)] transition hover:text-[var(--color-secondary-500)]">
+                            class=" block py-2 pl-3 pr-4 rounded md:flex md:bg-transparent bg-[var(--color-primary-600)] md:p-0 text-[var(--color-text-primary)] transition hover:text-[var(--color-secondary-500)]">
                         {{ link.title }} <svg class="icon chevron-icon" viewBox="0 0 24 24" width="14" height="14">
                             <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
                         </svg>
@@ -69,10 +69,14 @@
         </div>
     </nav>
    </header>
-    <main class="-mt-20 relative pb-8">
+    <!-- Added z-0 and a background color.
+         z-0 ensures this main content area is above any z-index: -1 elements (like the homepage canvas)
+         and correctly positioned below the z-20 header.
+         IMPORTANT: Replace 'bg-white dark:bg-neutral-800' with your site's actual page background color classes or variables. -->
+    <main class="mt-20 min-h-screen">
         <slot></slot>
     </main>
-    <footer class="hidden  bg-[var(--nav-bg)] md:grid md:grid-cols-5 mt-20 w-full border-t border-[var(--border-color)]">
+    <footer class="hidden  bg-[var(--nav-bg)] md:static md:bottom-0 md:grid md:grid-cols-5 mt-20 w-full h-[auto] border-t border-[var(--color-accent-500)]">
     <!-- Image Section -->
     <div class="flex justify-center items-center py-8 md:col-span-2 md:py-16 md:pl-4 md:justify-start">
         <img src="http://localhost:8000/img/9b0fd4e7-c2f7-485b-a09b-e9078080a064/z2sbzpbqstj980jj-nlmaf-logo-2shues-smallcropped.jpeg?fm=jpg&q=80&fit=max&crop=2048%2C2048%2C0%2C0" 
@@ -117,7 +121,7 @@ const handleLogout = ()=>{
     router.post(route('logout'));
 }
 const handleLogin  = ()=>{
-    router.visit(route('register'))
+    router.visit(route('login'))
 }
 
 

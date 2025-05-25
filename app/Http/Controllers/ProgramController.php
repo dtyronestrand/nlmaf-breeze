@@ -17,7 +17,13 @@ class ProgramController extends Controller
     public function show(string $slug): InertiaResponse
     {
         // Check for Taekwondo slug and user tkd attribute
-
+                  
+            if ($slug === 'taekwondo') {
+            $user = Auth::user();
+            if ($user && $user->tkd === true) {
+           redirect()->route('programs.taekwondo.members');
+            }
+        }
 
         // Get the current locale
         $locale = App::getLocale();
@@ -73,16 +79,7 @@ class ProgramController extends Controller
                 return Str::studly($segment); // Converts 'kebab-case' to 'PascalCase'
             }, explode('/', $slug));
             $inertiaComponent = 'Programs/' . implode('/', $componentNameParts);
-                  
-            if ($slug === 'taekwondo') {
-            $user = Auth::user();
-            if ($user && $user->tkd === true) {
-                return Inertia::render('programs.taekwondo.members', [
-                    'item' => $item->only($item->publicAttributes),
-                    'locale' => $locale, // Pass locale to the view
-                ]);
-            }
-        }
+
             return Inertia::render($inertiaComponent, [
                 'item' => $item->only($item->publicAttributes),
                 'locale' => $locale, // Pass locale to the view

@@ -7,7 +7,7 @@
     --primary-glow: #f9e35b;
     --secondary-color:#e67e22;
     --text-color: #f5f7f9;
-    --bg-color: #121212;
+    --bg-color: var(--color-base-900);
     --nav-bg: #6e1f1a;
     --dropdown-bg: rgba(110, 31, 26, 0.8);
     --hover-color: #3f51b5;
@@ -24,12 +24,13 @@
     --border-radius: 12px;
     --text-description: rgba(255, 255, 255, 0.7);
 
-  --card-height: 40vw;
-  --card-margin: 3vw;
+  --card-height: 50vw;
+  --card-margin: 6vw;
   --card-top-offset: 2em;
   --numcards: 3;
   --outline-width: 0px;
     /* 🔴 Primary - Ember Red */
+    --color-primary: var(--color-primary-500);
     --color-primary-100: #f9e4e2;
     --color-primary-200: #f2c1be;
     --color-primary-300: #e89a93;
@@ -41,6 +42,7 @@
     --color-primary-900: #511511;
   
     /* 🟠 Secondary - Flame Orange */
+    --color-secondary: var(--color-secondary-500);
     --color-secondary-100: #fbe9dd;
     --color-secondary-200: #f6c9a5;
     --color-secondary-300: #f0a769;
@@ -108,6 +110,7 @@
     --color-error-900: #3e120d;
 
     --color-text-primary: #f5f7f9;
+    --color-text-inverse: var(--color-neutral-900);
     --color-focus: #f4d03f;
   }
   *{
@@ -117,7 +120,7 @@
   }
 
   body{
-    background-color: var(--color-base-500);
+    background: var(--gradient-bg);
     line-height: 1;
     display: grid;
     min-height:100vh;
@@ -127,9 +130,7 @@
   header{
     min-height: 50px;
   }
-  footer{
-    min-height: 50px;
-  }
+
   h1, h2{
     font-family: 'Protest Revolution', serif;
   }

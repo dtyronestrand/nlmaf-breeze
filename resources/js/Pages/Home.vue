@@ -11,8 +11,7 @@ interface Props {
     item: Model.Page;
 }
 const BlockCommonHeading = defineAsyncComponent(() => import("../Components/Theme/Block/Common/Heading.vue"));
-const BlockCommonHero = defineAsyncComponent(() => import("../Components/Theme/Block/Common/Hero.vue"));
-const props = defineProps<Props>();
+const BlockCommonHero = defineAsyncComponent(() => import("../Components/Theme/Block/Common/Hero.vue")); defineProps<Props>();
 
 // WebGL Shader and Handler
 const fragmentShaderSource = `#version 300 es
@@ -172,13 +171,20 @@ vertexShaderSource = `#version 300 es
         window.removeEventListener('resize', this.resize);
         if (this.animationFrameId) {
             window.cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null; // Clear the animation frame ID
         }
         if (this.program) {
             // Detach and delete shaders if they were stored
             // For simplicity, just deleting the program which also detaches shaders
             this.gl.deleteProgram(this.program);
+            this.program = null; // Clear the program reference
         }
         // Potentially delete buffers and textures if any were created
+
+        // Hide the canvas element so it doesn't persist on other pages
+        if (this.cn) {
+            this.cn.style.display = 'none';
+        }
     }
 }
 
@@ -202,6 +208,7 @@ onMounted(() => {
 onUnmounted(() => {
     if (webGLInstance) {
         webGLInstance.cleanup();
+        webGLInstance = null; // Clear the instance reference
     }
 });
 

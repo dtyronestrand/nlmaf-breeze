@@ -9,7 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import WordList from '../Components/Theme/UI/WordList.vue';
 import IconButton from '../Components/Theme/UI/IconButton.vue';
 defineOptions({
-      layoutName: 'GuestLayout',
+      layoutName: 'Default',
 })
 const form = useForm({
    first_name: '',
@@ -43,7 +43,7 @@ const words = [
 <template>
    <Head title="Contact Us" />
     <WordList :words="words" />
-  <div class="bg-transparent flex items-center justify-center min-h-[100vh] mx-auto w-full max-w-6xl">
+  <div class="bg-transparent flex items-center justify-center mx-auto w-full max-w-6xl">
    <form @submit.prevent="submit" class="mt-10 bg-[var(--color-base-900)] px-20  text-lg flex align-center justify-center border-2 border-[var(--color-accent-500)] rounded-lg shadow-lg">
    <div class="flex flex-row justify-content-center">
    <div class="flex flex-col">
