@@ -17,7 +17,7 @@
 <h1 class="text-[var(--color-text-primary)] mb-12 text-center text-shadow-[var(--color-accent-500)] text-5xl md:text-7xl text-balance ">{{block.content.heading}}</h1>
 
 <ul id="cards ">
-<li v-for="(child, index) in block.childs" :key="index" class="card" id="`card-${index}`">
+<li v-for="(child, i) in block.childs" :key="i" class="card" :id="`card-${i + 1}`">
     <div class="card-content">
     <div>
         <h2 class="card-title text-3xl" v-html="goldText(child.content.heading)"></h2>
@@ -171,7 +171,7 @@ function goldText(sentence: string) {
     --reverse-index0: calc(var(--reverse-index) - 1);
   }
   
-  .card__content {
+  .card-content {
     transform-origin: 50% 0%;
     will-change: transform;
 
